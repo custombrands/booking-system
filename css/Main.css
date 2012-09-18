@@ -1,0 +1,79 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+}
+
+
+div.MainContainer{
+    width: 960px;
+    margin: auto;
+}
+
+input[type=text]{
+    width: 180px;
+    height: 40px;
+    padding-left: 20px;  
+}
+
+input[type=password]{
+    width: 180px;
+    height: 40px;
+    padding-left: 20px;  
+}
+
+input[type=submit]{
+    width: 204px;
+    height: 40px;
+}
+
+body{
+    background-color: white;
+}
+
+
+div.FloatContainer{
+    clear: both;
+    overflow: auto;
+}
+
+div.FloatContainer div.FloatLeft{
+    float: left;
+}
+
+div.FloatContainer div.FloatRight{
+    float: right;
+}
+
+div.FloatContainer div.FloatEndRight{
+    float: right;
+    clear: right;
+}
+
+.MarginLeft10{
+    margin-left: 10px;
+}
+
+.MarginLeft15{
+    margin-left: 15px;
+}
+
+.MarginLeft20{
+    margin-left: 20px;
+}
+
+.MarginTop10{
+    margin-top: 10px;
+}
+
+.MarginTop15{
+    margin-top: 10px;
+}
+
+.MarginTop20{
+    margin-top: 10px;
+}
+
+div.SignUpForm {
+    margin: auto;
+}
