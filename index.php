@@ -37,11 +37,21 @@
         
         <script type="text/javascript" src="js/taffy.js"></script>
         <script type="text/javascript" src="js/jquery-1.8.1.js"></script>
-        <script type="text/javascript" src="js/sha1.js"></script>
         <!--<script type="text/javascript" src="classes/DBmembers.js"></script>-->           
         <script type="text/javascript" src="database/database.js"></script>           
         <!--<script type="text/javascript" src="database/database.print.js"></script>-->           
-        <script type="text/javascript">            
+        <script type="text/javascript">
+            if(typeof(Storage)!=="undefined")
+              {
+                  
+                  
+                   
+              }
+            else
+              {
+                  // Sorry! No web storage support..
+              }
+              
 //            var memberOne = new DBmembers(0);
 //                
 //            console.log("-----------------------------------------------------");
@@ -69,7 +79,7 @@
                 
 //                console.log(memberOne.GetName());
 //                
-////            console.log(typeof memberOne.GetId());
+//            console.log(typeof memberOne.GetId());
                 
                 
             
