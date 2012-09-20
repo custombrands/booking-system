@@ -172,6 +172,7 @@ if(!localStorage.getItem("taffy_DB")){
        DB = JSON.parse(localStorage.taffy_DB);
        
        console.log("Database Exists in localStorage with name \"taffy_DB\"");
+       console.log(localStorage);
        console.log("Print out taffy_DB");
        console.log("*********************************************************");
        console.log("*********************************************************");
