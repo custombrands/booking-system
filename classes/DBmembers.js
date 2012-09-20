@@ -1,8 +1,9 @@
 /** 
- * @name Booking-System Database
+ * @name Booking-System MembersTable Manipulation
  * @author Dimul Sergejenkov <lamukra@gmail.com>
  * @constructor Database builder with empty fields
  */
+
 function DBmembers(iId){
         
         /* GLOBAL VARIABLES*/
@@ -12,38 +13,26 @@ function DBmembers(iId){
         var email;
         var phone;
         var password;
-        
         var membersDB;
         
-        
-        /* Constructor that will run on LOAD and will create an empty database and if user has a record will fetch data from DB and assing value to global variables */
         DBmembers.prototype.DatabaseContructor = function (iId){
-            // Initialize TAFFYDB Create Members Database (DB used as Database - not aplicable like in SQL, in SQL it will be a table [Database=Table])   
-            this.membersDB = new TAFFY();
-            // Sets up an empty columns with specified names
-            this.membersDB.settings({template:{"id":"","name":"", "lastname":"", "email":"", "phone":"", "password":""}})
-            //Runs an insert query to create some users
-            //PENDING: DATABASE SHOULD BE CREATED FROM USER REGISTRATIONS USING JS AND SAVED DATA SHOULD BE SAVED ADDED TO SERVER FILE
             
-            this.membersDB.insert(
-                [
-                 {"id":0, "name":"Dimul" , "lastname":"Sergejenkov" , "email":"a@gmial.com" , "phone":"+4553257007", "password":"123456"},
-                 {"id":1, "name":"Elena" , "lastname":"Hadjihristova" ,  "email":"b@b.com" , "phone":"+4553257007", "password":"123456"},
-                 {"id":2, "name":"Santiago" , "lastname":"Donoso" , "email":"c@c.com" , "phone":"+4553257007", "password":"123456"}
-                ]
-            );
-            /* IF USER already has a Record in Database then compare his ID that is passed to a CONSTRUCTOR againsts IDS in MembersDB   */    
+            /* IF USER already has a Record in Database then compare his ID that is passed to a CONSTRUCTOR againsts IDS in MemberstTable   */    
             if (typeof iId != undefined){
-                   var ids = this.membersDB().select("id");
-                   iIdsLength = ids.length;
+                   var ids = DB[0].id;
+                   iIdsLength = ids.length;                    
                    for (i = 0; i < iIdsLength; i++){
-                       if(iId == i-1){
+                       if(iId == i){
                            
                            // SELECTS SPECEFIC ROW BASED ON MEMBER ID
                            // Returns an array selected based on Member ID
-                           var query = this.membersDB().select("id", "name", "lastname", "email", "phone", "password")[i-1];
+                           var query = [ DB[0].id[i], DB[0].name[i], DB[0].lastname[i], DB[0].email[i], DB[0].phone[i], DB[0].password[i] ];  //select("id", "name", "lastname", "email", "phone", "password");
+                           console.log(query);
+                           
+                           console.log(DB[0]);
                            
                            // FETCH DB FIELD VALUES INTO GLOBAL VARIABLES
+
                            this.id = query[0]; // this is position of ID column (interger)
                            this.name = query[1]; //this is position of NAME column (string)
                            this.lastname = query[2]; //this is position of  LASTNAME column(string)
@@ -51,63 +40,17 @@ function DBmembers(iId){
                            this.phone = query[4]; // this is position of PHONE column (string)
                            this.password = query[5]; //this is posiiton of PASSWORD column (string)
                            
-                           console.log("User with id " + [i-1] + " has name:" + this.membersDB().select("name")[i-1] );
+//                           console.log("User with id " + [i] + " has name: " + DB[0].name[i] );
                        }
                    }
-                    
-                   
-                    
-//                    db().each(function (record,recordnumber) {
-//                            alert(record["balance"]);
-//                    }); // alerts the value of the balance column for each record
             }
-
-                
-          
-//            $match = this.membersDB().filter("id").count();
-//            
-//            console.log($match);
-//            console.log("-------------------------------------------------");
-//            
-//            var query = this.membersDB().select("id");
-//            console.log(query);
-//            
-//            
-//            if (iId > 0){
-//                 
-//                if( this.membersDB.id == iId){
-//                    
-//                    
-//                }
-                
-                
-               
-               
-//               this.id = this.membersDB.id;
-//               this.name = this.membersDB.name;
-//               this.lastname = this.membersDB.lastname;
-//               this.phone = this.membersDB.phone;
-//               this.password = this.membersDB.password;
-                
-            }
-           
-           
-           
-//           console.log(Array(this.id, this.name , this.lastname ,  this.phone , this.password));
-//           
-//           
-//           console.log("------------------------------------------------------");
-//           console.dir(this.membersDB.settings());
-           
-               
-//        };
-        
+                    
+        }        
         /*     SETTERS     */
         
         DBmembers.prototype.SetId = function (iId){
             this.id = iId;
         }
-        
         DBmembers.prototype.SetName = function(sName){
             this.name = sName;
         }
@@ -119,8 +62,7 @@ function DBmembers(iId){
         }
         DBmembers.prototype.SetPhone= function(sPhone){
             this.phone = sPhone;
-        }
-        
+        }      
         DBmembers.prototype.SetPassword= function(sPassword){
             this.password = sPassword;
         }
@@ -129,8 +71,7 @@ function DBmembers(iId){
         
         DBmembers.prototype.GetId = function (){
             return this.id;
-        }
-        
+        }        
         DBmembers.prototype.GetName = function () {
             return this.name;
         }
@@ -143,10 +84,103 @@ function DBmembers(iId){
         DBmembers.prototype.GetPhone = function () {
             return this.phone;
         }
-        
+        DBmembers.prototype.GetPassword = function () {
+            return this.password;
+        }      
         DBmembers.prototype.GetMembersTable = function () {
             return this.membersDB().get();
         };
+        
+        /*     FUNCTIONS     */
+        
+        DBmembers.prototype.SaveUser = function () {
+            //Get values from SignUp Form
+            
+            var name = this.GetElement("TxtUserName").value;
+            var lastname = this.GetElement("TxtUserLastName").value;
+            var email = this.GetElement("TxtUserEmail").value;
+            var phone = this.GetElement("TxtUserPhone").value;
+            var password = this.GetElement("TxtPassword").value;
+            
+            // Save member in MembersTable
+            
+            // id will be added automatically based on array length
+            var iDBidslength = DB[0].id.length;
+            DB[0].id.splice(iDBidslength, 0, iDBidslength ); //don't change it
+            
+            //Add Member from SignupForm
+            DB[0].name.splice(iDBidslength, 0, name);
+            DB[0].lastname.splice(iDBidslength, 0, lastname);
+            DB[0].email.splice(iDBidslength, 0, email);
+            DB[0].phone.splice(iDBidslength, 0, phone);
+            DB[0].password.splice(iDBidslength, 0, password);
+            
+            localStorage.setItem("taffy_DB", JSON.stringify(DB));
+        }
+        
+        DBmembers.prototype.EditUser = function (sBtnId) {
+            var aUser = JSON.parse(localStorage.User);
+            
+            var sName = this.GetElement("TxtUserName");
+            var sLastname = this.GetElement("TxtUserLastName");
+            var sEmail = this.GetElement("TxtUserEmail");
+            var sPhone =  this.GetElement("TxtUserPhone");
+            
+            var sInputField = this.GetElement("EditUserEmail");
+            
+            if(localStorage.User){
+                console.log("Edit me");
+                console.log(aUser);
+                
+                sName.value = aUser[1];
+                sLastname.value = aUser[2];
+                sEmail.value = aUser[3];
+                sPhone.value = aUser[4];
+                return true;                
+            }
+            if(sBtnId == "Update User"){
+                console.log("Update Me");
+               aUser.splice(0, 5, aUser[0], sName.value, sLastname.value, sEmail.value, sPhone.value)               
+               localStorage.User = JSON.stringify(aUser);
+               console.log(aUser);
+               console.log(localStorage);
+               return true;
+            }
+            return false;
+        }
+        
+        
+        DBmembers.prototype.Login = function (email, password){
+             // Compare that the email and password are registered 
+            // Foreach, never goes outside the length of the array
+               for(var i in DB[0].email &&  DB[0].password){
+                    var MemberEmail = DB[0].email[i];
+                    var MemberPassword = DB[0].password[i];
+                    
+                    // Find a match in Members Table
+                    if(MemberEmail == email && MemberPassword == password ){
+                        this.id = DB[0].id[i];
+                        this.name = DB[0].name[i];
+                        this.lastname = DB[0].lastname[i];
+                        this.email = DB[0].email[i];
+                        this.phone = DB[0].phone[i]; 
+                        var aUser = [DB[0].id[i], DB[0].name[i], DB[0].lastname[i], DB[0].email[i], DB[0].phone[i]];
+                        localStorage.setItem("User", JSON.stringify(aUser));
+                        console.log("User has loged in and has this INFO: " +this.id +" "+ this.name +" "+ this.lastname +" "+ this.email +" "+ this.phone);
+                        console.log(localStorage);
+                        return true;
+                    } 
+                }
+                console.log("user does not exist");
+                return false;
+        }
+        
+        
+        
+        DBmembers.prototype.GetElement = function (sId){
+               var get = document.getElementById(sId);
+               return get
+        }
         
         
     

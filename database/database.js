@@ -170,21 +170,34 @@ if(!localStorage.getItem("taffy_DB")){
     } else {
        /* Parse database from localStorage into Array of Objects and put it into "DB" Variable*/
        DB = JSON.parse(localStorage.taffy_DB);
-       
-       console.log("Database Exists in localStorage with name \"taffy_DB\"");
-       console.log(localStorage);
-       console.log("Print out taffy_DB");
-       console.log("*********************************************************");
-       console.log("*********************************************************");
-       console.log("");
-       console.log(localStorage.taffy_DB);
-       console.log("");
-       console.log("*********************************************************");
-       console.log("*********************************************************");
-       console.log("THIS IS DATABASE PARSED INTO ARRAY OF OBJECTS");
-       console.log(DB);
+//       console.log("Database Exists in localStorage with name \"taffy_DB\"");
+//       console.log(localStorage);
+//       console.log("Print out taffy_DB");
+//       console.log("*********************************************************");
+//       console.log("*********************************************************");
+//       console.log("");
+//       console.log(localStorage.taffy_DB);
+//       console.log("");
+//       console.log("*********************************************************");
+//       console.log("*********************************************************");
+//       console.log("THIS IS DATABASE PARSED INTO ARRAY OF OBJECTS");
+//       console.log(DB);
     }
 
 
 //var SelectID = this.DB().get()[0].name;
 //console.dir(SelectID);
+
+
+//FIXME : add code beneath this line to check if localStorage is supported
+
+//if(typeof(Storage)!=="undefined")
+//              {
+//                  
+//                  
+//                   
+//              }
+//            else
+//              {
+//                  // Sorry! No web storage support..
+//              }

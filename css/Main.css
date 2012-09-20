@@ -6,7 +6,7 @@
 
 
 div.MainContainer{
-    width: 960px;
+    width: 700px;;
     margin: auto;
 }
 
@@ -25,6 +25,14 @@ input[type=password]{
 input[type=submit]{
     width: 204px;
     height: 40px;
+}
+
+.label {
+    margin-right: 50px;
+    width: 204px;
+    line-height: 30px;
+    text-align: center;
+
 }
 
 body{
@@ -70,10 +78,28 @@ div.FloatContainer div.FloatEndRight{
     margin-top: 10px;
 }
 
-.MarginTop20{
+div.MarginTop20{
     margin-top: 10px;
+}
+div.MarginTop50{
+    margin-top: 50px;
 }
 
 div.SignUpForm {
-    margin: auto;
+    float: left;
+    width: 300px;
+}
+
+div.SubmitButtons {
+    margin-top: 40px;
+    width: 302px;
+    height: 400px;
+    float: left;
+}
+
+.LblDisplayUsers {
+    height: 178px;
+    width: 300px;
+    float: left;
+    border: 1px solid black;
 }

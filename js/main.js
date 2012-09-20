@@ -1,31 +1,43 @@
-    //  SAVE USER TO MEMBERS TABLE
-    /*  
-     *  Call function SaveUser only when submit button is clicked
-     * Add JQuery Event Listener in [SECTION]  EVENT LISTENERS to process users submit
-     */
-
-    $.SaveMember = function(username, lastname, email, userphone){
-        $MembersTable.insert({"name":username, "lastname":lastname, "email":email, "phone":userphone});
-    }
-    //  END SAVE USER
-    
-    
-    
-    
+var oDBmembers = new DBmembers();
 //    @todo Create Update User, Delete User add Validation
 
 /************************[SECTION]  EVENT LISTENERS******************************/
 
-
-    // Listens to submit button in div.SignUpForm
-    $("#TxtSignUpUser").click(function(){
-        $UserName = $('#TxtUserName').val( );
-        $UserLastName = $('#TxtUserLastName').val( );
-        $UserEmail = $('#TxtUserEmail').val( );
-        $UserPhone = $('#TxtUserPhone').val( );
-        $.SaveMember($UserName, $UserLastName, $UserEmail, $UserPhone);
-        console.log($MembersTable().get());
+    // Listens to submit button in SignUp
+        $("#TxtSignUpUser").click(function(){
+        
+        oDBmembers.SaveUser();
     });
+    //Login on press 
+    $("#TxtLogin").click(function(){
+        var email = $("#LoginUserEmail").val();
+        var password = $("#LoginPassword").val();
+        oDBmembers.Login(email, password);
+    });
+    // Edit User
+    
+    $("#TxtEditUser").click(function(){
+        var sBtnId = $("#TxtEditUser").val();
+        var sInput = $("#EditUserEmail").val();
+        console.log(sInput);
+        if(sBtnId == "Edit User" && sInput ){
+            
+            $("#TxtEditUser").val("Update User");
+            oDBmembers.EditUser();
+            
+        } else if (sBtnId == "Update User"){
+            
+            oDBmembers.EditUser(sBtnId)
+            $("#TxtEditUser").val("Edit User");
+            
+        } else {
+            console.log("there is nothing to edit");
+        }
+        
+    });
+    
+    
+    
 
 //});
 
