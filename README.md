@@ -1,4 +1,4 @@
 booking-system
 ==============
 
-Booking system for car sharing service. This repository is part of University project and used for educational purposes for now.
+Booking system for car sharing service. Utilizes Relatinal Database Faking and localStorage usage. TaffyDB framework is used for database creation.
