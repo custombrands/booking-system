@@ -1,39 +1,65 @@
-var oDBmembers = new DBmembers();
+
+function oDBmembers() {
+    var oDBmembers = new DBmembers();
+    return oDBmembers;
+}
+
 //    @todo Create Update User, Delete User add Validation
 
 /************************[SECTION]  EVENT LISTENERS******************************/
 
-    // Listens to submit button in SignUp
-        $("#TxtSignUpUser").click(function(){
-        
-        oDBmembers.SaveUser();
+    // Listens SINGUP button
+    $("#TxtSignUpUser").click(function(){
+            var email = $("#TxtUserEmail").val();
+            var password = $("#TxtPassword").val();
+            
+            bValid = oDBmembers().ValidateElements(email, password);
+            if(bValid == true){
+                oDBmembers().SaveUser();
+                if(!localStorage.User){
+                    oDBmembers().Login($("#TxtUserEmail").val(), $("#TxtRepeatPassword").val());
+                } else {
+                    localStorage.removeItem("User");
+                    oDBmembers().Login($("#TxtUserEmail").val(), $("#TxtRepeatPassword").val());
+                }
+            }
     });
+    
     //Login on press 
     $("#TxtLogin").click(function(){
-        var email = $("#LoginUserEmail").val();
-        var password = $("#LoginPassword").val();
-        oDBmembers.Login(email, password);
-    });
-    // Edit User
-    
-    $("#TxtEditUser").click(function(){
-        var sBtnId = $("#TxtEditUser").val();
-        var sInput = $("#EditUserEmail").val();
-        console.log(sInput);
-        if(sBtnId == "Edit User" && sInput ){
-            
-            $("#TxtEditUser").val("Update User");
-            oDBmembers.EditUser();
-            
-        } else if (sBtnId == "Update User"){
-            
-            oDBmembers.EditUser(sBtnId)
-            $("#TxtEditUser").val("Edit User");
-            
-        } else {
-            console.log("there is nothing to edit");
-        }
+        var LoginEmail = $("#LoginUserEmail").val();
+        var LoginPassword = $("#LoginPassword").val();
         
+        oDBmembers().Login(LoginEmail, LoginPassword);
+        
+    });
+    // Logout
+    $("#TxtLogout").click(function(){
+         oDBmembers().Logout();
+        $("#SignUpForm").css("display", "");
+    });
+    
+    // Edit User
+    $("#TxtEditUser").click(function(){
+        var sBtnId = $("#TxtEditUser");
+        var sInput = $("#EditUserEmail");
+        console.log(sInput.val());
+        
+        if(sBtnId.val() == "Edit User" && sInput.val() ){
+            
+            sBtnId.val("Update User");
+            oDBmembers().EditUser();
+            return true
+        } else if (sBtnId.val() == "Update User"){
+            
+            oDBmembers().EditUser(sBtnId.val());
+            sBtnId.val("Edit User");
+            return true
+        } else {
+            
+            console.log("there is nothing to edit");
+            return false;
+        }
     });
     
     

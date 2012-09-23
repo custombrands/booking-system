@@ -12,19 +12,19 @@ div.MainContainer{
 
 input[type=text]{
     width: 180px;
-    height: 40px;
+    height: 25px;
     padding-left: 20px;  
 }
 
 input[type=password]{
     width: 180px;
-    height: 40px;
+    height: 25px;
     padding-left: 20px;  
 }
 
 input[type=submit]{
     width: 204px;
-    height: 40px;
+    height: 25px;
 }
 
 .label {
@@ -91,7 +91,7 @@ div.SignUpForm {
 }
 
 div.SubmitButtons {
-    margin-top: 40px;
+    margin-top: 25px;
     width: 302px;
     height: 400px;
     float: left;

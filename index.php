@@ -13,19 +13,20 @@
                 <form action="index.php" method="post" onsubmit="return false" >
                     
                     <label class="label"  for="TxtUserName" >TxtUserName</label>
-                    <div><input id="TxtUserName" name="username" type="text" placeholder="Enter Your Name" value=""></div>
+                    <div><input id="TxtUserName" name="username" type="text" placeholder="Enter Your Name" value="Dimul"></div>
                     
                     <label class="label" for="TxtUserLastName">TxtUserLastName</label>
-                    <div><input id="TxtUserLastName" name="lastname" type="text"  placeholder="Enter Your Last Name" value=""></div>
+                    <div><input id="TxtUserLastName" name="lastname" type="text"  placeholder="Enter Your Last Name" value="Sergejenkov"></div>
                     
                     <label class="label" for="TxtUserEmail">TxtUserEmail</label>
-                    <div><input id="TxtUserEmail" type="text" name="email" placeholder="Enter Your Last Name" value=""></div>
+                    <div><input id="TxtUserEmail" type="text" name="email" placeholder="Enter Your Email" value="lamukra@gmail.com"></div>
                     
                         <label class="label" for="TxtUserPhone">TxtUserPhone</label>
-                    <div><input id="TxtUserPhone" type="text"  name="phone" placeholder="Phone"  value=""></div>
+                    <div><input id="TxtUserPhone" type="text"  name="phone" placeholder="Phone"  value="53257007"></div>
                     
                     <label class="label" for="TxtPassword">TxtPassword</label>
-                    <div><input id="TxtPassword" type="password"  name="password" placeholder="Password"  value=""></div>
+                    <div><input id="TxtPassword" type="password"  name="password" placeholder="Password"  value="1234566" maxlength="20"></div>
+                    <div><input id="TxtRepeatPassword" type="password"  name="password" placeholder="Repeat Password"  value="1234566"></div>
                     
                     <div>
                         <input id="TxtSignUpUser" type="submit" name="submit" value="Signup" />
@@ -42,7 +43,7 @@
                 <form action="index.php" method="post" onsubmit=" return false">
                     
                     <label class="label" for="EditUserEmail">EditUserEmail</label>
-                    <div><input id="EditUserEmail" type="text" name="email" placeholder="Enter Email" value="d@gmail.com"></div>
+                    <div><input id="EditUserEmail" type="text" name="email" placeholder="Enter Email" value="lamukra@gmail.com"></div>
                     
                     <div>
                         <input id="TxtEditUser" type="submit" name="edit" value="Edit User" />
@@ -52,12 +53,15 @@
                 <form action="index.php" method="post" onsubmit=" return false;">
                     
                     <label class="label" for="LoginUserEmail">LoginUserEmail</label>
-                    <div><input id="LoginUserEmail" type="text" name="email" placeholder="Enter Email" value="d@gmail.com"></div>
+                    <div><input id="LoginUserEmail" type="text" name="email" placeholder="Enter Email" value="lamukra@gmail.com"></div>
                     
                     <label class="label" for="LoginPassword">LoginPassword</label>
-                    <div><input id="LoginPassword" type="password"  name="password" placeholder="Password"  value="NEWPASSWORD"></div>
+                    <div><input id="LoginPassword" type="password"  name="password" placeholder="Password"  value="1234566"></div>
                     <div>
                         <input id="TxtLogin" type="submit" name="login" value="Login" />
+                    </div>
+                    <div>
+                        <input id="TxtLogout" type="submit" name="logout" value="Logout" />
                     </div>
                 </form>
                 
@@ -76,29 +80,7 @@
         <script type="text/javascript" src="js/main.js"></script>           
         <!--<script type="text/javascript" src="database/database.print.js"></script>-->           
         <script type="text/javascript">
-                
-        var sName =  
-
-                console.log(sName);
-            
-//            x = JSON.parse(localStorage.User)
-//            console.log(x);
-//            x =  DB[0]
-//            email: Array[7]
-//            id: Array[7]
-//            lastname: Array[7]
-//            name: Array[7]
-//            password: Array[7]
-//            phone: Array[7]
-            
-//            console.log(x);
-
-//            console.log(DB);
-//            console.log(DB[0].email);
-            
-                
-                
-            
+            console.log(DB[0].email[6]);
         </script>
 
     </body>

@@ -71,7 +71,7 @@ if(!localStorage.getItem("taffy_DB")){
                "lastname":["Sergen" , "Hadist" , "Donoso" , " Jensen" , "Brown" , "Osborn"],
                "email":["a@gmail.com" , "b@gmdb.com" , "s@sand.com" , "d@orlm.com" , "f@semp.com" , "r@tomb.com"],
                "phone":["+4553257007" , "+4560047898" , "+4512345554" , "+4522336677" , "+4545678988" , "+4522314769"],
-               "password":["0000" , "1111" , "3333" , "4444" , "5555" , "8888"]
+               "password":["000000" , "111111" , "333333" , "444444" , "555555" , "888888"]
             });
             var CarsTable_Insert = 
                 this.DB.insert(
