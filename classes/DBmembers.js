@@ -13,23 +13,26 @@ function DBmembers(iId){
         var email;
         var phone;
         var password;
-        var membersDB;
+        var m_type;
         
         DBmembers.prototype.DatabaseContructor = function (iId){
             
             /* IF USER already has a Record in Database then compare his ID that is passed to a CONSTRUCTOR againsts IDS in MemberstTable   */    
-            if ((typeof iId !== "") == true){
-                   var ids = DB[0].id;
-                   iIdsLength = ids.length;                    
+            
+             var ids = DB[0].id;
+             iIdsLength = ids.length;
+             var query;
+             
+             if (typeof iId == "number"){
+                console.log("Got the ID, building");                    
                    for (i = 0; i < iIdsLength; i++){
                        if(iId == i){
                            
                            // SELECTS SPECEFIC ROW BASED ON MEMBER ID
                            // Returns an array selected based on Member ID
-                           var query = [ DB[0].id[i], DB[0].name[i], DB[0].lastname[i], DB[0].email[i], DB[0].phone[i], DB[0].password[i] ];  //select("id", "name", "lastname", "email", "phone", "password");
+                           //select("id", "name", "lastname", "email", "phone", "password");
+                           query = [ DB[0].id[i], DB[0].name[i], DB[0].lastname[i], DB[0].email[i], DB[0].phone[i], DB[0].password[i], DB[0].m_type_id[i] ];  
 //                           console.log(query);
-                           
-//                           console.log(DB[0]);
                            
                            // FETCH DB FIELD VALUES INTO GLOBAL VARIABLES
 
@@ -39,12 +42,41 @@ function DBmembers(iId){
                            this.email = query[3]; // this is position of EMAIL column (string)
                            this.phone = query[4]; // this is position of PHONE column (string)
                            this.password = query[5]; //this is posiiton of PASSWORD column (string)
+                           this.m_type = new DBm_types(query[6]); //this is posiiton of m_type_id in query and creates new object Member Types;
                            
 //                           console.log("User with id " + [i] + " has name: " + DB[0].name[i] );
                        }
                    }
+            } else if (localStorage.User){
+                console.log("No ID was provided, getting id from localStorage for Loged IN USER");
+                aUser = JSON.parse(localStorage.User);
+                var LogedinUserId = aUser[0];
+                for (i = 0; i < iIdsLength; i++){
+                       if(LogedinUserId == i){
+                           
+                           // SELECTS SPECEFIC ROW BASED ON MEMBER ID
+                           // Returns an array selected based on Member ID
+                           //select("id", "name", "lastname", "email", "phone", "password");
+                           query = [ DB[0].id[i], DB[0].name[i], DB[0].lastname[i], DB[0].email[i], DB[0].phone[i], DB[0].password[i], DB[0].m_type_id[i] ];   
+//                           console.log(query);
+                           
+                           // FETCH DB FIELD VALUES INTO GLOBAL VARIABLES
+
+                           this.id = query[0]; // this is position of ID column (interger)
+                           this.name = query[1]; //this is position of NAME column (string)
+                           this.lastname = query[2]; //this is position of  LASTNAME column(string)
+                           this.email = query[3]; // this is position of EMAIL column (string)
+                           this.phone = query[4]; // this is position of PHONE column (string)
+                           this.password = query[5]; //this is posiiton of PASSWORD column (string)
+                           this.m_type = new DBm_types(query[6]); //this is posiiton of m_type_id in query and creates new object Member Types;
+                           
+//                           console.log("User with id " + [i] + " has name: " + DB[0].name[i] );
+                       }
+                   }
+            } else {
+                console.log("JUST FUNCTIONING");
             }
-                    
+            return true;
         }        
         /*     SETTERS     */
         
@@ -65,6 +97,9 @@ function DBmembers(iId){
         }      
         DBmembers.prototype.SetPassword= function(sPassword){
             this.password = sPassword;
+        }
+        DBmembers.prototype.SetM_type= function(m_type_id){
+            this.m_type = new DBm_types(m_type_id);
         }
         
         /*     GETTERS     */
@@ -87,9 +122,9 @@ function DBmembers(iId){
         DBmembers.prototype.GetPassword = function () {
             return this.password;
         }      
-        DBmembers.prototype.GetMembersTable = function () {
-            return this.membersDB().get();
-        };
+        DBmembers.prototype.GetM_type = function () {
+            return this.m_type;
+        }      
         
         /*     FUNCTIONS     */
         
@@ -103,17 +138,19 @@ function DBmembers(iId){
             var password = this.GetElement("TxtPassword").value;
             
             // Save member in MembersTable
-            
             // id will be added automatically based on array length
             var iDBidslength = DB[0].id.length;
             DB[0].id.splice(iDBidslength, 0, iDBidslength ); //don't change it
             
-            //Add Member from SignupForm
+            //Add Member from SignupForm into Main DB
             DB[0].name.splice(iDBidslength, 0, name);
             DB[0].lastname.splice(iDBidslength, 0, lastname);
             DB[0].email.splice(iDBidslength, 0, email);
             DB[0].phone.splice(iDBidslength, 0, phone);
             DB[0].password.splice(iDBidslength, 0, password);
+            DB[0].m_type_id.splice(iDBidslength, 0, 1);
+            // Add Member to localStorage.taffy_DB to MainDB as main DB will not be renewed on next reload it will Parsed from localStorage.taffy_DB
+            // Main DB is build only once if it does not exist in localStorage
             
             localStorage.setItem("taffy_DB", JSON.stringify(DB));
             console.log("User Is Saved");
@@ -129,26 +166,35 @@ function DBmembers(iId){
             var sLastname = this.GetElement("TxtUserLastName");
             var sEmail = this.GetElement("TxtUserEmail");
             var sPhone =  this.GetElement("TxtUserPhone");
-            
-            var sInputField = this.GetElement("EditUserEmail");
-            
+                        
             if(localStorage.User && sBtnId == undefined){
                 console.log("Edit me");
                 console.log(aUser);
                 
                 sName.value = aUser[1];
                 sLastname.value = aUser[2];
-                sEmail.value = aUser[3];
+               sEmail.value = aUser[3];
                 sPhone.value = aUser[4];
                 return true;
             }
             else if(typeof sBtnId !== undefined){
+               
                 
-                console.log("Update Me");
-               aUser.splice(0, 5, aUser[0], sName.value, sLastname.value, sEmail.value, sPhone.value)               
+               console.log("Updated Me");
+               aUser.splice(0, 5, aUser[0], sName.value, sLastname.value, sEmail.value, sPhone.value)
                localStorage.User = JSON.stringify(aUser);
                console.log(aUser);
-               console.log(localStorage);
+               console.log(localStorage.getItem("User"));
+                
+                console.log("---------------------------------------------------------");
+                console.log("Updated Me to main DB");
+                var updateID = DB[0].id[user.GetId()];
+                DB[0].name.splice(updateID, 1, aUser[1]);
+                DB[0].lastname.splice(updateID, 1, aUser[2]);
+                DB[0].email.splice(updateID, 1, aUser[3]);
+                DB[0].phone.splice(updateID, 1, aUser[4]);
+                localStorage.taffy_DB = JSON.stringify(DB);
+                console.log(DB[0].name[updateID] +", " + DB[0].lastname[updateID] + " " +  DB[0].email[updateID]+" "+ DB[0].phone[updateID]);
                return true;
             }
             return false;
@@ -165,48 +211,20 @@ function DBmembers(iId){
                     
                     // Find a match in Members Table
                     if(MemberEmail == email && MemberPassword == password ){ 
-                        var aUser = [DB[0].id[i], DB[0].name[i], DB[0].lastname[i], DB[0].email[i], DB[0].phone[i]];
-                        console.dir(aUser);
+                        var aUser = [DB[0].id[i], DB[0].name[i], DB[0].lastname[i], DB[0].email[i], DB[0].phone[i], DB[0].m_type_id[i]];
                         localStorage.setItem("User", JSON.stringify(aUser));
-                        this.SetId(aUser[0]);
-                        this.SetName(aUser[1]);
-                        this.SetLastName(aUser[2]);
-                        this.SetEmail(aUser[3]);
-                        this.SetPhone(aUser[4]);
-                        console.log("User has loged in and has this INFO: " +this.id +" "+ this.name +" "+ this.lastname +" "+ this.email +" "+ this.phone);
                         console.log(localStorage);
-                        return this;
+                        return true;
                     } 
                 }
                 console.log("user does not exist");
                 return false;
         }
         DBmembers.prototype.Logout = function () {
-            aUser = JSON.parse(localStorage.User);
-            
-            for( var i in DB[0].id){
-                console.log("i is: " + i);
-                if(aUser[0] == i){
-                    console.log("id with number: " + i + "got a match on "+i );
-                    console.log(aUser[1]);
-                    DB[0].id.splice(i, 1, aUser[0])
-                    DB[0].name.splice(i, 1, aUser[1]);
-                    DB[0].lastname.splice(i, 1, aUser[2])
-                    DB[0].email.splice(i, 1, aUser[3]);
-                    DB[0].phone.splice(i, 1, aUser[4]);
-                    console.log(DB[0].name[i]);
-                    localStorage.setItem("taffy_DB", JSON.stringify(DB));
-                    localStorage.removeItem("User");
-                    break;
-                }
-                console.log("not match");
-            }
+            localStorage.removeItem("User");
             console.log("User Is Loged out");
-                console.log("His Data was saved to main DB");
-                
-                
-               
-
+            console.log(localStorage);
+            return true;
         }
         
         /* VALIDATION */
@@ -215,11 +233,12 @@ function DBmembers(iId){
                 //ValidateInfo('TxtLoginEmail', 6, 50);
 //                var oEmailInput = this.GetElement(oEmailInputId);
 //                var oPasswordInput = this.GetElement(oPasswordInputId);
-                
+                if (this.ValidateFields()){
                 var bValidEmail = this.IsEmailValid(email_val);
                 var bValidPassword = this.IsPasswordValid(password_val, 6, 20);
                 if(bValidEmail == true && bValidPassword == true){
                     return true;
+                }
                 }
                 return false;
             }
@@ -243,7 +262,7 @@ function DBmembers(iId){
                 console.log(password);
                 console.log(this.GetElement("TxtRepeatPassword").value);
                 
-                if(this.GetElement("TxtRepeatPassword").value !== ""){
+                if(this.GetElement("TxtPassword").value !== ""){
                     
                         if(password.length >= minCharacters && password.length <= maxCharacters){
                              console.log("this password will work");
@@ -268,6 +287,23 @@ function DBmembers(iId){
                 
             }
             
+            DBmembers.prototype.ValidateFields = function (){
+                    var sName = this.GetElement("TxtUserName").value;
+                    var sLastname = this.GetElement("TxtUserLastName").value;
+                    var sEmail = this.GetElement("TxtUserEmail").value;
+                    var sPhone =  this.GetElement("TxtUserPhone").value;
+                    var sPassword = this.GetElement("TxtPassword").value;
+                    var sPasswordRepeat = this.GetElement("TxtRepeatPassword").value;
+                    
+                    if ( typeof sName == "" || sLastname == "" || sEmail == "" || sPhone == "" || sPassword == "" || sPasswordRepeat == "") {
+                        console.log("Please fill in all required fields");
+                        return false
+                    } else {
+                        console.log("all fields filled");
+                        return true;
+                    }
+             }            
+ 
         
         /* RECURSIVE ACTIONS */
         

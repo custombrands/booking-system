@@ -21,6 +21,7 @@
  *      SharingStatusTable      [6]
  *      BookingsTable               [7]   
  *      ConfirmationsTable       [8]
+ *     MemberTypeTable         [9]
 */
 
 /* SET TEMPLATE FOR EACH TABLE */
@@ -43,8 +44,9 @@
         //        
         //        BookingsTable_Template:{"member_id":[], "sharing_id":[], "made_date":[]},
         //        
-        //        ConfirmationsTable_Template:{"member_id":[], "request_id":[], "made_date":[]}
+        //        ConfirmationsTable_Template:{"member_id":[], "request_id":[], "made_date":[]},
         //
+        //        MemberTypeTable_Template:{"id":[], "name":[] }
         //
         //        }});
     
@@ -52,7 +54,7 @@
 /* Variable will hold Database as Array of Objects */
 var DB;
 
-if(!localStorage.getItem("taffy_DB")){
+if(!localStorage.taffy_DB){
     
     // Self Invokable funvtion to run on page load if there is no Database in Local Storage
     (function InsertTables(){
@@ -71,12 +73,14 @@ if(!localStorage.getItem("taffy_DB")){
                "lastname":["Sergen" , "Hadist" , "Donoso" , " Jensen" , "Brown" , "Osborn"],
                "email":["a@gmail.com" , "b@gmdb.com" , "s@sand.com" , "d@orlm.com" , "f@semp.com" , "r@tomb.com"],
                "phone":["+4553257007" , "+4560047898" , "+4512345554" , "+4522336677" , "+4545678988" , "+4522314769"],
-               "password":["000000" , "111111" , "333333" , "444444" , "555555" , "888888"]
+               "password":["000000" , "111111" , "333333" , "444444" , "555555" , "888888"],
+               // TODO: Finish Member Types Table
+               "m_type_id": [0 , 1 , 1 , 1 , 1 , 1]
             });
             var CarsTable_Insert = 
                 this.DB.insert(
             {
-                "id":[1,2,3],
+                "id":[0,1,2],
                 "member_id":[this.DB().get()[0].id[2],
                                       this.DB().get()[0].id[1],
                                       this.DB().get()[0].id[0]],
@@ -89,7 +93,7 @@ if(!localStorage.getItem("taffy_DB")){
             });
             var PickupPlaceTable_Insert = 
                 this.DB.insert({
-                "id":[1,2,3],
+                "id":[0,1,2],
                 "name":["Værløse Station" , "Maløv Station", "Naerum Station"],
                 "street":["Kollekollevej", "Søndergårds Allé", "Langebjerg"],
                 "latitude":["55.781536" , "55.74726027560506" , "55.813644142170304"],
@@ -110,7 +114,7 @@ if(!localStorage.getItem("taffy_DB")){
             var RequestStatusTable_Insert = 
                 this.DB.insert(
             {
-                "id":[1 , 2],
+                "id":[0 , 1],
                 "name":["Confirmed" , "Not Confirmed"]    
             });
 
@@ -131,7 +135,7 @@ if(!localStorage.getItem("taffy_DB")){
             var SharingStatusTable_Insert = 
                 this.DB.insert(
             {
-                    "id":[1 , 2],
+                    "id":[0 , 1],
                     "name":["Fully Booked", "Free Seats"]
             });
 
@@ -150,10 +154,19 @@ if(!localStorage.getItem("taffy_DB")){
                     "request_id":[],
                     "made_date":[]
             });
+            
+            var MemberTypeTable_Insert = 
+                this.DB.insert(
+            {
+                    "id":[0 , 1],
+                    "name":["Admin" , "User" ]
+            });
+            
     })();
     
     /* PUT DATA INTO LOCAL STORAGE FOR FURTHER MANIPULATION */
     this.DB.store("DB");
+    DB = this.DB().get();  
     
     /*Print Database into JS Console, Return as Array of Obects*/
     console.log("Database does not exist....");
@@ -162,14 +175,15 @@ if(!localStorage.getItem("taffy_DB")){
     console.log("PRINTING OUT DATABASE...");
     console.log("THIS IS DATABASE AS AND ARRAY OF OBJECTS");
     console.log("-----------------------------------------------------------------------");
-    console.log(this.DB().get());
+    console.log(DB);
     console.log("-----------------------------------------------------------------------");
     console.log("Initializing localStorage for DB Database");
     console.log(localStorage);
-    
+        
     } else {
        /* Parse database from localStorage into Array of Objects and put it into "DB" Variable*/
        DB = JSON.parse(localStorage.taffy_DB);
+       
 //       console.log("Database Exists in localStorage with name \"taffy_DB\"");
 //       console.log(localStorage);
 //       console.log("Print out taffy_DB");
@@ -189,7 +203,7 @@ if(!localStorage.getItem("taffy_DB")){
 //console.dir(SelectID);
 
 
-//FIXME : add code beneath this line to check if localStorage is supported
+//FIXME : added code (commented out) beneath this line is to check if localStorage is supported
 
 //if(typeof(Storage)!=="undefined")
 //              {
