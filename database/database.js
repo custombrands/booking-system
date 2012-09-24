@@ -17,8 +17,8 @@
  *      PickupPlaceTable          [2]
  *      RequestTable                [3]
  *      RequestStatusTable     [4]
- *      SharingsTable               [5]
- *      SharingStatusTable      [6]
+ *      SharingStatusTable      [5]
+ *      SharingsTable               [6]
  *      BookingsTable               [7]   
  *      ConfirmationsTable       [8]
  *     MemberTypeTable         [9]
@@ -38,9 +38,9 @@
         //        
         //        RequestStatusTable_Template:{"id":[], "name":[]},
         //        
-        //        SharingsTable_Template:{ "id":[], "member_id":[],"car_id":[], "SHstatus_id":[], "pickup_id":[], "via":[], "destination":[], "sharing_datetime":[], "seats":[] },
-        //        
         //        SharingStatusTable_Template:{"id":[], "name":[]},
+        //        
+        //        SharingsTable_Template:{ "id":[], "member_id":[],"car_id":[], "SHstatus_id":[], "pickup_id":[], "via":[], "destination":[], "sharing_datetime":[], "seats":[] },
         //        
         //        BookingsTable_Template:{"member_id":[], "sharing_id":[], "made_date":[]},
         //        
@@ -74,7 +74,6 @@ if(!localStorage.taffy_DB){
                "email":["a@gmail.com" , "b@gmdb.com" , "s@sand.com" , "d@orlm.com" , "f@semp.com" , "r@tomb.com"],
                "phone":["+4553257007" , "+4560047898" , "+4512345554" , "+4522336677" , "+4545678988" , "+4522314769"],
                "password":["000000" , "111111" , "333333" , "444444" , "555555" , "888888"],
-               // TODO: Finish Member Types Table
                "m_type_id": [0 , 1 , 1 , 1 , 1 , 1]
             });
             var CarsTable_Insert = 
@@ -118,26 +117,29 @@ if(!localStorage.taffy_DB){
                 "name":["Confirmed" , "Not Confirmed"]    
             });
 
-            var SharingTable_Insert = 
-                this.DB.insert(
-            {
-                    "id":[],
-                    "member_id":[],
-                    "car_id":[],
-                    "SHstatus_id":[],
-                    "pickup_id":[],
-                    "via":[],
-                    "destination":[],
-                    "sharing_datetime":[],
-                    "seats":[]
-            });
-
+//TODO CHANGE INDEX OF ARRAY FROM 6 TO 5
             var SharingStatusTable_Insert = 
                 this.DB.insert(
             {
                     "id":[0 , 1],
                     "name":["Fully Booked", "Free Seats"]
             });
+//TODO CHANGE INDEX OF ARRAY FROM 5 TO 6
+            
+            var SharingsTable_Insert = 
+                this.DB.insert(
+            {
+                    "id":[0],
+                    "member_id":[ this.DB().get()[0].id[1] ],
+                    "car_id":[ this.DB().get()[0].id[1] ],
+                    "SHstatus_id":[ this.DB().get()[5].id[1] ],
+                    "pickup_id":[ this.DB().get()[2].id[2]],
+                    "via":["Gentofte"],
+                    "destination":["Nørreport"],
+                    "sharing_datetime":["30/09/2012"],
+                    "seats":["3"]
+            });
+
 
             var BookingsTable_Insert = 
                 this.DB.insert(

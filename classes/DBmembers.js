@@ -24,7 +24,7 @@ function DBmembers(iId){
              var query;
              
              if (typeof iId == "number"){
-                console.log("Got the ID, building");                    
+//                console.log("Got the ID, building");                    
                    for (i = 0; i < iIdsLength; i++){
                        if(iId == i){
                            

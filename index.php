@@ -8,10 +8,35 @@
 
 <body>
     
-        <header class="Header">
+        <div class="Header">
             <h1>Car Share</h1>
             <p>Open Source for car Sharing</p>
-        </header>
+        </div>
+        <div class="Testing">
+            <h2>Test Add Sharing</h2>
+            <div>
+                <form action="index.php" method="post" onsubmit="return false;">
+                    <div id="TxtSelectPickup">
+                        
+                    </div>
+                    <div>
+                        <input type="text" placeholder="Enter via point" name="via" value="Søborg">
+                    </div>
+                    <div>
+                        <input type="text" placeholder="Enter destination point" name="destination" value="Vesteport">
+                    </div>
+                    <div>
+                        <input type="text" placeholder="Enter Date" name="date" value="29/09/2012">
+                    </div>
+                    <div>
+                        <input type="text" placeholder="Enter Free Seats" name="seats" value="3">
+                    </div>
+                    <div>
+                        <input type="submit" value="Add Sharing" />
+                    </div>
+                </form>  
+            </div>
+        </div>
                 
         <div class="MainContainer">
             
@@ -78,12 +103,30 @@
         <script type="text/javascript" src="js/taffy.js"></script>
         <script type="text/javascript" src="js/jquery-1.8.1.js"></script>
         <script type="text/javascript" src="database/database.js"></script>           
+        <script type="text/javascript" src="classes/DBsharingStatuses.js"></script>           
+        <script type="text/javascript" src="classes/DBpickup_places.js"></script>           
         <script type="text/javascript" src="classes/DBm_types.js"></script>           
         <script type="text/javascript" src="classes/DBmembers.js"></script>           
+        <script type="text/javascript" src="classes/DBcars.js"></script>           
+        <script type="text/javascript" src="classes/DBsharings.js"></script>           
         <script type="text/javascript" src="js/main.js"></script>           
         <!--<script type="text/javascript" src="database/database.print.js"></script>-->           
         <script type="text/javascript">
-                        
+            
+            
+//             var sharings = new DBsharings(0);
+//                
+//            var x = sharings.GetDestination();
+//            
+//            console.log(x);
+
+                
+//                var car = new DBcars(1);
+//                var test = car.GetOwner().GetName();
+                
+//                console.log(test);
+//                var test = ;
+//            console.log(sharings.DatabaseContructor(0));
         </script>
 </body>
 

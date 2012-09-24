@@ -5,6 +5,19 @@ function oDBmembers(ID) {
     return oDBmember;
 }
 
+$.CreatePickupLocations = (function (){
+     var oPickupTable = aMainDBparser()[2];
+    $("#TxtSelectPickup").append("<select id=\"PickUpSelector\"></select>");
+    console.log(oPickupTable.name);
+    
+    for (i in oPickupTable.id){
+        console.log(oPickupTable.name[i]);
+        $("#PickUpSelector").append("<option id=\"OptionOne\" value=\"Choice 1\" >" + oPickupTable.name[i] + "</option>");
+    }
+    
+})();
+
+
 //    @todo Create Update User, Delete User add Validation
 
 /************************[SECTION]  EVENT LISTENERS******************************/
@@ -94,6 +107,17 @@ function oDBmembers(ID) {
             return false;
         }
     }
+    function aMainDBparser (){
+        var aMainDB;
+        if(localStorage.taffy_DB){
+            aMainDB = JSON.parse(localStorage.taffy_DB)
+            return aMainDB;
+        } else {
+            return false;
+        }
+    }
+    
+    /* Useful Functions */
     
     $.Disabled = function (ID){
         $("#" + ID).attr("disabled", "disabled");
@@ -102,17 +126,16 @@ function oDBmembers(ID) {
         $("#" + ID).removeAttr(attr);
     }
 
-$.CheckLogedIn = (function () {
-    if(localStorage.User){
-        $.Disabled("LoginUserEmail");
-        $.Disabled("LoginPassword");
-        $.Disabled("TxtLogin");
-        $.deleteAttr("TxtLogout", "disabled");
-    } else {
-        console.log("noone is loged int");
-    }
-})();
-//});
+    $.CheckLogedIn = (function () {
+        if(localStorage.User){
+            $.Disabled("LoginUserEmail");
+            $.Disabled("LoginPassword");
+            $.Disabled("TxtLogin");
+            $.deleteAttr("TxtLogout", "disabled");
+        } else {
+            console.log("noone is loged int");
+        }
+    })();
 
 
 // FIXME: Think about how to save database without localStorage, so that database will be available to all users
