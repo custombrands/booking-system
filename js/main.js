@@ -1,18 +1,34 @@
-var user = new DBmembers();
-
+var user = oDBmembers();
+var car = oDBcars();
+var sharings = oDBsharings();
+var sharingStatus = oDBsharingsStatuses();
+var login;
+ 
 function oDBmembers(ID) {
     var oDBmember = new DBmembers(ID);
     return oDBmember;
 }
+function oDBcars(M_ID){
+    var oDBcar = new DBcars(M_ID);
+    return oDBcar;
+}
+function oDBsharings(M_ID) {
+    var oDBsharing = new DBsharings(M_ID);
+    return oDBsharing;
+}
+function oDBsharingsStatuses(S_ID){
+    var oDBsharingStatus = new DBsharingStatuses(S_ID);
+    return oDBsharingStatus;
+}
 
 $.CreatePickupLocations = (function (){
-     var oPickupTable = aMainDBparser()[2];
-    $("#TxtSelectPickup").append("<select id=\"PickUpSelector\"></select>");
-    console.log(oPickupTable.name);
+     var oPickupTable = DB[2]; // or aMainDBparser()[2] if to take from loclaStorage;
+    $("#TxtSelectPickup").append("<select id=\"TxtPickUpSelector\"></select>");
+//    console.log(oPickupTable.name);
     
     for (i in oPickupTable.id){
-        console.log(oPickupTable.name[i]);
-        $("#PickUpSelector").append("<option id=\"OptionOne\" value=\"Choice 1\" >" + oPickupTable.name[i] + "</option>");
+//        console.log(oPickupTable.name[i]);
+        $("#TxtPickUpSelector").append("<option id=\"OptionOne\" value=\""+oPickupTable.id[i]+"\" >" + oPickupTable.name[i] + "</option>");
     }
     
 })();
@@ -31,8 +47,16 @@ $.CreatePickupLocations = (function (){
             if(bValid == true){
                 oDBmembers().SaveUser();
                 if(!aUserParser()){
-                    oDBmembers().Login($("#TxtUserEmail").val(), $("#TxtRepeatPassword").val());
+                    login = oDBmembers().Login($("#TxtUserEmail").val(), $("#TxtRepeatPassword").val());
                     user = oDBmembers(aUserParser()[0]);
+                    car = oDBcars(aUserParser()[0]);
+                    sharings = oDBsharings(aUserParser()[0]);
+                     if(login){
+                        $.Disabled("LoginUserEmail");
+                        $.Disabled("LoginPassword");
+                        $.Disabled("TxtLogin");
+                        $.deleteAttr("TxtLogout", "disabled");
+                    }
                     console.log("Uset Loged IN");
                 } else {
                     localStorage.removeItem("User");
@@ -47,15 +71,24 @@ $.CreatePickupLocations = (function (){
     $("#TxtLogin").click(function(){
         var LoginEmail = $("#LoginUserEmail").val();
         var LoginPassword = $("#LoginPassword").val();
-        oDBmembers().Login(LoginEmail, LoginPassword);
-        $.Disabled("LoginUserEmail");
-        $.Disabled("LoginPassword");
-        $.Disabled("TxtLogin");
-        $.deleteAttr("TxtLogout", "disabled");
-        
-        // Set Member Information to object when he logs in
-        if(aUserParser()){
+
+        if(!aUserParser()){
+            login = user.Login(LoginEmail, LoginPassword);
+            if(login){
             user = oDBmembers(aUserParser()[0]);
+            sharings = oDBsharings(aUserParser()[0]);
+            car = oDBcars(aUserParser()[0])
+            sharingStatus = oDBsharingsStatuses(1);
+            sharings.SaveSharingsOnLogin()
+            car.SaveCarOnLogin();
+            $.Disabled("LoginUserEmail");
+            $.Disabled("LoginPassword");
+            $.Disabled("TxtLogin");
+            $.deleteAttr("TxtLogout", "disabled");
+            }
+        }
+        //Check User type and provide functionality
+        if(aUserParser()){
             var user_type = user.GetM_type().GetName();
            if(user_type == "Admin"){
                console.log("You logged in as an ADMIN");
@@ -65,16 +98,16 @@ $.CreatePickupLocations = (function (){
         }
     });
     
-    // Logout
+    // LOGOUT
     $("#TxtLogout").click(function(){
-         oDBmembers().Logout();
+         user.Logout();
          $.deleteAttr("LoginUserEmail", "disabled");
          $.deleteAttr("LoginPassword", "disabled");
          $.deleteAttr("TxtLogin", "disabled");
          $.Disabled("TxtLogout");
     });
     
-    // Edit User
+    // EDIT USER
     $("#TxtEditUser").click(function(){
         var sBtnId = $("#TxtEditUser");
         var sInput = $("#EditUserEmail");
@@ -96,7 +129,15 @@ $.CreatePickupLocations = (function (){
         }
     });
     
-    /*   PARSER   */
+    // ADD SHARING
+    $("#BtnAddSharing").click(function(){
+            oDBsharings().AddSharing();
+            
+
+    });
+        
+    
+    /*   PARSERS   */
     
     function aUserParser () {
         var aUser;

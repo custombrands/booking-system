@@ -16,23 +16,21 @@
             <h2>Test Add Sharing</h2>
             <div>
                 <form action="index.php" method="post" onsubmit="return false;">
-                    <div id="TxtSelectPickup">
-                        
+                    <div id="TxtSelectPickup"></div>
+                    <div>
+                        <input id="TxtVia" type="text" placeholder="Enter via point" name="via" value="Søborg">
                     </div>
                     <div>
-                        <input type="text" placeholder="Enter via point" name="via" value="Søborg">
+                        <input id="TxtDestination" type="text" placeholder="Enter destination point" name="destination" value="Vesteport">
                     </div>
                     <div>
-                        <input type="text" placeholder="Enter destination point" name="destination" value="Vesteport">
+                        <input id="TxtDate" type="text" placeholder="Enter Date" name="date" value="29/09/2012">
                     </div>
                     <div>
-                        <input type="text" placeholder="Enter Date" name="date" value="29/09/2012">
+                        <input id="TxtSeats" type="text" placeholder="Enter Free Seats" name="seats" value="3">
                     </div>
                     <div>
-                        <input type="text" placeholder="Enter Free Seats" name="seats" value="3">
-                    </div>
-                    <div>
-                        <input type="submit" value="Add Sharing" />
+                        <input id="BtnAddSharing" type="submit" value="Add Sharing" />
                     </div>
                 </form>  
             </div>
@@ -47,9 +45,9 @@
                     <div >
                         <form action="index.php" method="post" onsubmit=" return false;">
 
-                            <div><input id="LoginUserEmail" type="text" name="email" placeholder="Enter Email" value="lamukra@gmail.com"></div>
+                            <div><input id="LoginUserEmail" type="text" name="email" placeholder="Enter Email" value="b@gmdb.com"></div>
 
-                            <div><input id="LoginPassword" type="password"  name="password" placeholder="Password"  value="1234566"></div>
+                            <div><input id="LoginPassword" type="password"  name="password" placeholder="Password"  value="111111"></div>
                             <div>
                                 <input id="TxtLogin" type="submit" name="login" value="Login" />
                             </div>
@@ -106,14 +104,13 @@
         <script type="text/javascript" src="classes/DBsharingStatuses.js"></script>           
         <script type="text/javascript" src="classes/DBpickup_places.js"></script>           
         <script type="text/javascript" src="classes/DBm_types.js"></script>           
+        <script type="text/javascript" src="classes/DBsharings.js"></script>           
         <script type="text/javascript" src="classes/DBmembers.js"></script>           
         <script type="text/javascript" src="classes/DBcars.js"></script>           
-        <script type="text/javascript" src="classes/DBsharings.js"></script>           
         <script type="text/javascript" src="js/main.js"></script>           
         <!--<script type="text/javascript" src="database/database.print.js"></script>-->           
         <script type="text/javascript">
-            
-            
+//        console.log(sharings.GetAllSharings());
 //             var sharings = new DBsharings(0);
 //                
 //            var x = sharings.GetDestination();

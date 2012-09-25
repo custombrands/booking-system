@@ -14,28 +14,26 @@ function DBmembers(iId){
         var phone;
         var password;
         var m_type;
+        var sharings;
         
         DBmembers.prototype.DatabaseContructor = function (iId){
             
             /* IF USER already has a Record in Database then compare his ID that is passed to a CONSTRUCTOR againsts IDS in MemberstTable   */    
             
              var ids = DB[0].id;
-             iIdsLength = ids.length;
+             var iIdsLength = ids.length;
              var query;
              
              if (typeof iId == "number"){
 //                console.log("Got the ID, building");                    
                    for (i = 0; i < iIdsLength; i++){
                        if(iId == i){
-                           
-                           // SELECTS SPECEFIC ROW BASED ON MEMBER ID
-                           // Returns an array selected based on Member ID
+                           // SELECTS SPECEFIC DATA BASED ON MEMBER ID
+                           // Returns an array where selection is based on Member ID
                            //select("id", "name", "lastname", "email", "phone", "password");
                            query = [ DB[0].id[i], DB[0].name[i], DB[0].lastname[i], DB[0].email[i], DB[0].phone[i], DB[0].password[i], DB[0].m_type_id[i] ];  
 //                           console.log(query);
-                           
                            // FETCH DB FIELD VALUES INTO GLOBAL VARIABLES
-
                            this.id = query[0]; // this is position of ID column (interger)
                            this.name = query[1]; //this is position of NAME column (string)
                            this.lastname = query[2]; //this is position of  LASTNAME column(string)
@@ -43,25 +41,24 @@ function DBmembers(iId){
                            this.phone = query[4]; // this is position of PHONE column (string)
                            this.password = query[5]; //this is posiiton of PASSWORD column (string)
                            this.m_type = new DBm_types(query[6]); //this is posiiton of m_type_id in query and creates new object Member Types;
-                           
-//                           console.log("User with id " + [i] + " has name: " + DB[0].name[i] );
+
                        }
                    }
-            } else if (localStorage.User){
-                console.log("No ID was provided, getting id from localStorage for Loged IN USER");
-                aUser = JSON.parse(localStorage.User);
+            }
+            if (localStorage.User && localStorage.User_Sharings){
+                
+                var aUser = JSON.parse(localStorage.User);
+                var aSharings = JSON.parse(localStorage.User_Sharings);
+                this.sharings = aSharings;
                 var LogedinUserId = aUser[0];
                 for (i = 0; i < iIdsLength; i++){
                        if(LogedinUserId == i){
-                           
                            // SELECTS SPECEFIC ROW BASED ON MEMBER ID
                            // Returns an array selected based on Member ID
-                           //select("id", "name", "lastname", "email", "phone", "password");
+                           //select("id", "name", "lastname", "email", "phone", "password", "member_type");
                            query = [ DB[0].id[i], DB[0].name[i], DB[0].lastname[i], DB[0].email[i], DB[0].phone[i], DB[0].password[i], DB[0].m_type_id[i] ];   
 //                           console.log(query);
-                           
                            // FETCH DB FIELD VALUES INTO GLOBAL VARIABLES
-
                            this.id = query[0]; // this is position of ID column (interger)
                            this.name = query[1]; //this is position of NAME column (string)
                            this.lastname = query[2]; //this is position of  LASTNAME column(string)
@@ -69,12 +66,9 @@ function DBmembers(iId){
                            this.phone = query[4]; // this is position of PHONE column (string)
                            this.password = query[5]; //this is posiiton of PASSWORD column (string)
                            this.m_type = new DBm_types(query[6]); //this is posiiton of m_type_id in query and creates new object Member Types;
-                           
-//                           console.log("User with id " + [i] + " has name: " + DB[0].name[i] );
                        }
                    }
             } else {
-                console.log("JUST FUNCTIONING");
             }
             return true;
         }        
@@ -103,7 +97,7 @@ function DBmembers(iId){
         }
         
         /*     GETTERS     */
-        
+     /**   @GetId This is for gettings ID */
         DBmembers.prototype.GetId = function (){
             return this.id;
         }        
@@ -124,7 +118,11 @@ function DBmembers(iId){
         }      
         DBmembers.prototype.GetM_type = function () {
             return this.m_type;
-        }      
+        }
+        DBmembers.prototype.GetSharings = function(){
+            
+            return this.sharings;
+        }
         
         /*     FUNCTIONS     */
         
@@ -198,9 +196,7 @@ function DBmembers(iId){
                return true;
             }
             return false;
-            
         }
-        
         
         DBmembers.prototype.Login = function (email, password){
              // Compare that the email and password are registered 
@@ -213,7 +209,6 @@ function DBmembers(iId){
                     if(MemberEmail == email && MemberPassword == password ){ 
                         var aUser = [DB[0].id[i], DB[0].name[i], DB[0].lastname[i], DB[0].email[i], DB[0].phone[i], DB[0].m_type_id[i]];
                         localStorage.setItem("User", JSON.stringify(aUser));
-                        console.log(localStorage);
                         return true;
                     } 
                 }
@@ -222,6 +217,8 @@ function DBmembers(iId){
         }
         DBmembers.prototype.Logout = function () {
             localStorage.removeItem("User");
+            localStorage.removeItem("User_Sharings");
+            localStorage.removeItem("User_Car");
             console.log("User Is Loged out");
             console.log(localStorage);
             return true;

@@ -4,7 +4,7 @@
  * @constructor Database builder with empty fields
  */
 //DONE cars class
-function DBcars(c_id){
+function DBcars(m_id){
         
         /* GLOBAL VARIABLES*/
         var id;
@@ -15,17 +15,18 @@ function DBcars(c_id){
         var color;
         var seats;
                 
-        DBcars.prototype.DatabaseContructor = function (c_id){
-           var ids = DB[1].id;
-           iIdsLength = ids.length;       
-           if (typeof c_id == "number"){
-                   for (i = 0; i < iIdsLength; i++){
-                       if(c_id == i){
+        DBcars.prototype.DatabaseContructor = function (m_id){
+           var CarIds = DB[1].id;
+           var CarIdsLength = CarIds.length; 
+           var MemberIds = DB[1].member_id;
+           if (typeof m_id == "number"){
+                   for (i = 0; i < CarIdsLength; i++){
+                       if(m_id == MemberIds[i]){
                            
                            // SELECTS SPECEFIC ROW BASED ON m_type_id
                            // Returns an array selected based on m_type_id
                            var query = [ DB[1].id[i], DB[1].member_id[i], DB[1].reg_number[i], DB[1].brand[i], DB[1].model[i], DB[1].color[i], DB[1].seats[i]];  //select("id", "name")
-                           console.log("For this car \n" + query);
+                           console.log("For this car" + query);
                            // FETCH DB FIELD VALUES INTO GLOBAL VARIABLES
                            this.id = query[0]; // this is position of ID column (interger)
                            this.member_id = new DBmembers(query[1]); //this is position of NAME column (string)
@@ -81,6 +82,13 @@ function DBcars(c_id){
             return this.seats;
         }
         
-        this.DatabaseContructor(c_id);
+        DBcars.prototype.SaveCarOnLogin = function(){
+            
+            var aCar = [this.id , this.member_id.GetId() , this.reg_number , this.brand , this.model , this.color , this.seats];
+            localStorage.setItem("User_Car", JSON.stringify(aCar));
+        }
+        
+        
+        this.DatabaseContructor(m_id);
         
 }

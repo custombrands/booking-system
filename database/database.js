@@ -129,15 +129,15 @@ if(!localStorage.taffy_DB){
             var SharingsTable_Insert = 
                 this.DB.insert(
             {
-                    "id":[0],
-                    "member_id":[ this.DB().get()[0].id[1] ],
-                    "car_id":[ this.DB().get()[0].id[1] ],
-                    "SHstatus_id":[ this.DB().get()[5].id[1] ],
-                    "pickup_id":[ this.DB().get()[2].id[2]],
-                    "via":["Gentofte"],
-                    "destination":["Nørreport"],
-                    "sharing_datetime":["30/09/2012"],
-                    "seats":["3"]
+                    "id":[0, 1, 2],
+                    "member_id":[ this.DB().get()[0].id[1], this.DB().get()[0].id[1], this.DB().get()[0].id[2] ],
+                    "car_id":[ this.DB().get()[0].id[1], this.DB().get()[0].id[1], this.DB().get()[0].id[0]],
+                    "SHstatus_id":[ this.DB().get()[5].id[1], this.DB().get()[5].id[1], this.DB().get()[5].id[1] ],
+                    "pickup_id":[ this.DB().get()[2].id[2], this.DB().get()[2].id[2], this.DB().get()[2].id[1]],
+                    "via":["Gentofte", "Charlottelund", "Rødovre"],
+                    "destination":["Nørreport", "Amager", "Hillerod"],
+                    "sharing_datetime":["30/09/2012", "01/11/2012", "04/11/2012"],
+                    "seats":["3", "2", "2"]
             });
 
 
