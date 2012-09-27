@@ -9,32 +9,75 @@
 <body>
     
         <div class="Header">
-            <h1>Car Share</h1>
+            <h1 id="TxtHeading">Car Share</h1>
             <p>Open Source for car Sharing</p>
         </div>
-        <div class="Testing">
-            <h2>Test Add Sharing</h2>
-            <div>
-                <form action="index.php" method="post" onsubmit="return false;">
-                    <div id="TxtSelectPickup"></div>
-                    <div>
-                        <input id="TxtVia" type="text" placeholder="Enter via point" name="via" value="Søborg">
-                    </div>
-                    <div>
-                        <input id="TxtDestination" type="text" placeholder="Enter destination point" name="destination" value="Vesteport">
-                    </div>
-                    <div>
-                        <input id="TxtDate" type="text" placeholder="Enter Date" name="date" value="29/09/2012">
-                    </div>
-                    <div>
-                        <input id="TxtSeats" type="text" placeholder="Enter Free Seats" name="seats" value="3">
-                    </div>
-                    <div>
-                        <input id="BtnAddSharing" type="submit" value="Add Sharing" />
-                    </div>
-                </form>  
+        <div class="MainContainer" id="Display">
+            <div class="LeftColumn">   
+                <h2>Test Add Sharing</h2>
+                <div class="LoginForm">
+                    <form action="index.php" method="post" onsubmit="return false;">
+                        <div id="TxtSelectPickup"></div>
+                        <div>
+                            <input id="TxtVia" type="text" placeholder="Enter via point" name="via" value="Søborg">
+                        </div>
+                        <div>
+                            <input id="TxtDestination" type="text" placeholder="Enter destination point" name="destination" value="Vesteport">
+                        </div>
+                        <div>
+                            <input id="TxtDate" type="text" placeholder="Enter Date" name="date" value="29/09/2012">
+                        </div>
+                        <div>
+                            <input id="TxtSeats" type="text" placeholder="Enter Free Seats" name="seats" value="3">
+                        </div>
+                        <div>
+                            <input id="BtnAddSharing" type="submit" value="Add Sharing" />
+                        </div>
+                    </form>  
+                </div>
+                <h2>Test View Sharings</h2>
+                <div class="LoginForm">
+                    <form action="index.php" method="post" onsubmit="return false;">
+                        <div>
+                            <input id="BtnViewSharings" type="submit" name="view" value="View Sharings">
+                        </div>
+                    </form>  
+                </div>
             </div>
+            
+                
+<!--                <table id="TxtSharingsTable" class="MarginTop10 MarginAuto TxtSharingsTable">
+                    <thead>
+                        <tr>
+                            <th>Nr.</th>
+                            <th>Status</th>
+                            <th>Pickup Location</th>
+                            <th>Via</th>
+                            <th>Destination</th>
+                            <th>Sharing Date</th>
+                            <th>Seats</th>
+                            <th>Booked Seats</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="EditRow1">
+                            <td>1</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>Charlottelund</td>
+                            <td>Amager</td>
+                            <td>01/11/2012</td>
+                            <td>2</td>
+                            <td>Booked Seats</td>
+                            <td><button class="BtnEdit">Edit</button></td>
+                            <td><button class="BtnDelete">Delete</button></td>
+                        </tr>
+                    </tbody>
+                </table>-->
         </div>
+        <div id="LblDisplaySharings" class="MainContainer"></div>
                 
         <div class="MainContainer">
             
@@ -110,20 +153,39 @@
         <script type="text/javascript" src="js/main.js"></script>           
         <!--<script type="text/javascript" src="database/database.print.js"></script>-->           
         <script type="text/javascript">
-//        console.log(sharings.GetAllSharings());
-//             var sharings = new DBsharings(0);
-//                
-//            var x = sharings.GetDestination();
-//            
-//            console.log(x);
-
+        $.CreateAllSharingsTable();
+        
+        $.AddListenerToTableEdit();
+//        $.AddListenerToTableDelete();
+//          $(".BtnDelete").click(function(){
+//                var trElements = $("table tbody tr");
+//                var iTbodyLenght = trElements.length
+//                 for (i =0; i<iTbodyLenght; i++){
+//                 var sBtnId = "BtnDelete"+(Number(i)+1);
+//                      if($(this).attr("id") == sBtnId){
+//
+//                        $(this).parent().parent().remove();
+//                        
+//                        var toDeleteRowId = trElements[i].id;
+//                        var SharingsIdfromRow = toDeleteRowId.split("EditRow")[1];
+//                        var Sharings_Id = Number(SharingsIdfromRow);
+//                        sharings.DeleteSharing(Sharings_Id);
+//                        
+//                    }
+//                }
+//            });
+            
+//            for(var x in aSharingsParser()){
                 
-//                var car = new DBcars(1);
-//                var test = car.GetOwner().GetName();
+//                if(aSharingsParser()[x].status == 1){
+//                    console.log( aSharingsParser()[x].status);
+//                }
                 
-//                console.log(test);
-//                var test = ;
-//            console.log(sharings.DatabaseContructor(0));
+//            }
+          
+          
+//            console.log(DB[6].id[0] , DB[6].via[0] , DB[6].destination[0]);
+            
         </script>
 </body>
 

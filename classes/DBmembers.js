@@ -14,7 +14,6 @@ function DBmembers(iId){
         var phone;
         var password;
         var m_type;
-        var sharings;
         
         DBmembers.prototype.DatabaseContructor = function (iId){
             
@@ -22,7 +21,6 @@ function DBmembers(iId){
             
              var ids = DB[0].id;
              var iIdsLength = ids.length;
-             var query;
              
              if (typeof iId == "number"){
 //                console.log("Got the ID, building");                    
@@ -31,32 +29,7 @@ function DBmembers(iId){
                            // SELECTS SPECEFIC DATA BASED ON MEMBER ID
                            // Returns an array where selection is based on Member ID
                            //select("id", "name", "lastname", "email", "phone", "password");
-                           query = [ DB[0].id[i], DB[0].name[i], DB[0].lastname[i], DB[0].email[i], DB[0].phone[i], DB[0].password[i], DB[0].m_type_id[i] ];  
-//                           console.log(query);
-                           // FETCH DB FIELD VALUES INTO GLOBAL VARIABLES
-                           this.id = query[0]; // this is position of ID column (interger)
-                           this.name = query[1]; //this is position of NAME column (string)
-                           this.lastname = query[2]; //this is position of  LASTNAME column(string)
-                           this.email = query[3]; // this is position of EMAIL column (string)
-                           this.phone = query[4]; // this is position of PHONE column (string)
-                           this.password = query[5]; //this is posiiton of PASSWORD column (string)
-                           this.m_type = new DBm_types(query[6]); //this is posiiton of m_type_id in query and creates new object Member Types;
-
-                       }
-                   }
-            }
-            if (localStorage.User && localStorage.User_Sharings){
-                
-                var aUser = JSON.parse(localStorage.User);
-                var aSharings = JSON.parse(localStorage.User_Sharings);
-                this.sharings = aSharings;
-                var LogedinUserId = aUser[0];
-                for (i = 0; i < iIdsLength; i++){
-                       if(LogedinUserId == i){
-                           // SELECTS SPECEFIC ROW BASED ON MEMBER ID
-                           // Returns an array selected based on Member ID
-                           //select("id", "name", "lastname", "email", "phone", "password", "member_type");
-                           query = [ DB[0].id[i], DB[0].name[i], DB[0].lastname[i], DB[0].email[i], DB[0].phone[i], DB[0].password[i], DB[0].m_type_id[i] ];   
+                           var query = [ DB[0].id[i], DB[0].name[i], DB[0].lastname[i], DB[0].email[i], DB[0].phone[i], DB[0].password[i], DB[0].m_type_id[i] ];  
 //                           console.log(query);
                            // FETCH DB FIELD VALUES INTO GLOBAL VARIABLES
                            this.id = query[0]; // this is position of ID column (interger)
@@ -68,7 +41,19 @@ function DBmembers(iId){
                            this.m_type = new DBm_types(query[6]); //this is posiiton of m_type_id in query and creates new object Member Types;
                        }
                    }
-            } else {
+            }else if (localStorage.User){
+                var aUser = JSON.parse(localStorage.User); 
+                           this.id = aUser[0]; // this is position of ID column (interger)
+                           this.name = aUser[1]; //this is position of NAME column (string)
+                           this.lastname = aUser[2]; //this is position of  LASTNAME column(string)
+                           this.email = aUser[3]; // this is position of EMAIL column (string)
+                           this.phone = aUser[4]; // this is position of PHONE column (string)
+                           for(var i in DB[0].id){
+                               if(aUser[0] == DB[0].id[i]){
+                                   this.password = DB[0].password[i];
+                               }
+                           }
+                           this.m_type = new DBm_types(aUser[5]); //this is posiiton of m_type_id in query and creates new object Member Types;
             }
             return true;
         }        
@@ -119,10 +104,9 @@ function DBmembers(iId){
         DBmembers.prototype.GetM_type = function () {
             return this.m_type;
         }
-        DBmembers.prototype.GetSharings = function(){
-            
-            return this.sharings;
-        }
+//        DBmembers.prototype.GetSharings = function(){
+//            return this.sharings;
+//        }
         
         /*     FUNCTIONS     */
         

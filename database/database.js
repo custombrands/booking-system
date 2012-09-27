@@ -137,7 +137,8 @@ if(!localStorage.taffy_DB){
                     "via":["Gentofte", "Charlottelund", "Rødovre"],
                     "destination":["Nørreport", "Amager", "Hillerod"],
                     "sharing_datetime":["30/09/2012", "01/11/2012", "04/11/2012"],
-                    "seats":["3", "2", "2"]
+                    "seats":[3, 2, 2],
+                    "status":[1, 1, 1]
             });
 
 

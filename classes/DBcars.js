@@ -26,7 +26,7 @@ function DBcars(m_id){
                            // SELECTS SPECEFIC ROW BASED ON m_type_id
                            // Returns an array selected based on m_type_id
                            var query = [ DB[1].id[i], DB[1].member_id[i], DB[1].reg_number[i], DB[1].brand[i], DB[1].model[i], DB[1].color[i], DB[1].seats[i]];  //select("id", "name")
-                           console.log("For this car" + query);
+//                           console.log(query);
                            // FETCH DB FIELD VALUES INTO GLOBAL VARIABLES
                            this.id = query[0]; // this is position of ID column (interger)
                            this.member_id = new DBmembers(query[1]); //this is position of NAME column (string)
@@ -37,6 +37,16 @@ function DBcars(m_id){
                            this.seats = query[6]; //this is position of NAME column (string)
                        }
                    }
+            } else if(localStorage.User_Car) {
+                var aCar = JSON.parse(localStorage.User_Car);
+                
+                this.id = aCar[0];
+                this.member_id = new DBmembers(aCar[1]);
+                this.reg_number = aCar[2];
+                this.brand = aCar[3];
+                this.model = aCar[4];
+                this.color = aCar[5];
+                this.seats = aCar[6];
             }
                     
         }        
