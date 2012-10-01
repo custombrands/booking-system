@@ -1,7 +1,7 @@
 /** 
  * @name Booking-System MembersTable Manipulation
  * @author Dimul Sergejenkov <lamukra@gmail.com>
- * @constructor Database builder with empty fields
+ * @constructor Database builder for Logedin User SHarings
  */
 // DONE Sharings class, MAIN FUNCTIONALITY (Getters, Setters);
 function DBsharings(m_id){
@@ -48,7 +48,7 @@ function DBsharings(m_id){
                 var aUserSharings = JSON.parse(localStorage.User_Sharings);
                 var iSharingslength = aUserSharings.length
                 for (var i in aUserSharings){
-                    this.sharings.splice(iSharingsLength, 0, aUserSharings[i]);
+                    this.sharings.splice(iSharingslength, 0, aUserSharings[i]);
                 }
             }
 //            console.log(this.sharings);
@@ -190,18 +190,18 @@ function DBsharings(m_id){
             for (i = 0; i < iSheringsLength; i++ ){
                     if(this.sharings[i].id == sharing_id){
                         
-//                        this.sharings.splice(this.sharings.indexOf(this.sharings[i]), 1);
+                        this.sharings.splice(this.sharings.indexOf(this.sharings[i]), 1);
                         console.log(this.sharings);
                         
-//                        DB[6].id.splice(sharing_id, 1);
-//                        DB[6].car_id.splice(sharing_id, 1);
-//                        DB[6].SHstatus_id.splice(sharing_id, 1);
-//                        DB[6].pickup_id.splice(sharing_id, 1);
-//                        DB[6].via.splice(sharing_id, 1);
-//                        DB[6].destination.splice(sharing_id, 1);
-//                        DB[6].sharing_datetime.splice(sharing_id, 1);
-//                        DB[6].seats.splice(sharing_id, 1);
-//                        DB[6].status.splice(sharing_id, 1);
+                        DB[6].id.splice(sharing_id, 1);
+                        DB[6].car_id.splice(sharing_id, 1);
+                        DB[6].SHstatus_id.splice(sharing_id, 1);
+                        DB[6].pickup_id.splice(sharing_id, 1);
+                        DB[6].via.splice(sharing_id, 1);
+                        DB[6].destination.splice(sharing_id, 1);
+                        DB[6].sharing_datetime.splice(sharing_id, 1);
+                        DB[6].seats.splice(sharing_id, 1);
+                        DB[6].status.splice(sharing_id, 1);
                          localStorage.setItem("User_Sharings", JSON.stringify(this.sharings));
                         localStorage.setItem("taffy_DB", JSON.stringify(DB));
      

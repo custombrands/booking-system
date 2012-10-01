@@ -203,6 +203,7 @@ function DBmembers(iId){
             localStorage.removeItem("User");
             localStorage.removeItem("User_Sharings");
             localStorage.removeItem("User_Car");
+            localStorage.removeItem("User_Bookings");
             console.log("User Is Loged out");
             console.log(localStorage);
             return true;

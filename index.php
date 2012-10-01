@@ -11,6 +11,7 @@
         <div class="Header">
             <h1 id="TxtHeading">Car Share</h1>
             <p>Open Source for car Sharing</p>
+            <p>Admin User: a@gmail.com Password: 000000</p>
         </div>
         <div class="MainContainer" id="Display">
             <div class="LeftColumn">   
@@ -39,7 +40,7 @@
                 <div class="LoginForm">
                     <form action="index.php" method="post" onsubmit="return false;">
                         <div>
-                            <input id="BtnViewSharings" type="submit" name="view" value="View Sharings">
+                            <input id="BtnViewSharings" type="submit" name="view" disabled="disabled" value="View Sharings">
                         </div>
                     </form>  
                 </div>
@@ -77,7 +78,9 @@
                     </tbody>
                 </table>-->
         </div>
-        <div id="LblDisplaySharings" class="MainContainer"></div>
+        <div id="LblSharingsBook" class="MainContainer"><h2>Book Here</h2></div>
+        <div id="LblDisplaySharings" class="MainContainer"><h2>Your Sharings Here</h2></div>
+        <div id="LblDisplayBookings" class="MainContainer"><h2>Your Bookings Here</h2></div>
                 
         <div class="MainContainer">
             
@@ -149,42 +152,24 @@
         <script type="text/javascript" src="classes/DBm_types.js"></script>           
         <script type="text/javascript" src="classes/DBsharings.js"></script>           
         <script type="text/javascript" src="classes/DBmembers.js"></script>           
+        <script type="text/javascript" src="classes/DBbookings.js"></script>           
         <script type="text/javascript" src="classes/DBcars.js"></script>           
         <script type="text/javascript" src="js/main.js"></script>           
         <!--<script type="text/javascript" src="database/database.print.js"></script>-->           
         <script type="text/javascript">
-        $.CreateAllSharingsTable();
-        
-        $.AddListenerToTableEdit();
-//        $.AddListenerToTableDelete();
-//          $(".BtnDelete").click(function(){
-//                var trElements = $("table tbody tr");
-//                var iTbodyLenght = trElements.length
-//                 for (i =0; i<iTbodyLenght; i++){
-//                 var sBtnId = "BtnDelete"+(Number(i)+1);
-//                      if($(this).attr("id") == sBtnId){
-//
-//                        $(this).parent().parent().remove();
-//                        
-//                        var toDeleteRowId = trElements[i].id;
-//                        var SharingsIdfromRow = toDeleteRowId.split("EditRow")[1];
-//                        var Sharings_Id = Number(SharingsIdfromRow);
-//                        sharings.DeleteSharing(Sharings_Id);
-//                        
-//                    }
-//                }
-//            });
-            
-//            for(var x in aSharingsParser()){
-                
-//                if(aSharingsParser()[x].status == 1){
-//                    console.log( aSharingsParser()[x].status);
-//                }
-                
-//            }
-          
-          
-//            console.log(DB[6].id[0] , DB[6].via[0] , DB[6].destination[0]);
+//        $.CreateAllSharingsTable();
+//        $.CreateBookingsTable()
+//        $.CreateAvailableBookingsTable();
+//    console.log( ($("#TxtLogin").attr("disabled") == "disabled")==true);
+//        $.AddListenerToTableEdit();
+//        $.AddListenerDelete();
+//           var bookings = new DBbookings(0);
+//           var sharings = []
+//           console.log(aBookingsParser());
+//           console.log(DB[7].id[0]);
+           
+//            console.log(sharings);
+
             
         </script>
 </body>

@@ -128,7 +128,9 @@ div.RightColumn {
     margin-top: 24px;
 }
 
-table.TxtSharingsTable input[type=text]{
+
+/*******  Sharings Table Styling  ********/
+/*table.TxtSharingsTable input[type=text]{
     width: 95px;
     height: 23px;
     margin: 0;
@@ -142,5 +144,149 @@ table.TxtSharingsTable thead tr th{
 table.TxtSharingsTable tbody tr td {
     width: 104px;
     height: 30px;
-    
+}*/
+
+#LblDisplaySharings table th {
+    font-size: 13px;
+    text-align: left;
+}
+#LblDisplaySharings table td {
+    font-size: 13px;
+}
+
+#LblDisplaySharings table .number{
+    width: 30px;
+}
+#LblDisplaySharings table .status{
+    width: 50px;
+}
+#LblDisplaySharings table .pickup{
+    width: 100px;
+}
+#LblDisplaySharings table .via{
+    width: 100px;
+}
+#LblDisplaySharings table .via input[type=text]{
+    width: 90px;
+    height: 20px;
+    padding: 0;
+    margin: 0;
+}
+#LblDisplaySharings table .destination{
+    width: 100px;
+}
+#LblDisplaySharings table .destination input[type=text]{
+    width: 90px;
+    height: 20px;
+    padding: 0;
+    margin: 0;
+}
+#LblDisplaySharings table .sharingdate{
+    width: 100px;
+}
+#LblDisplaySharings table .sharingdate input[type=text]{
+    width: 90px;
+    height: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+#LblDisplaySharings table .seats{
+    width: 40px;
+}
+#LblDisplaySharings table .seatsbooked{
+    width: 90px;
+}
+#LblDisplaySharings table .button{
+    width: 70px;
+}
+
+/*******  User Bookings Table Styling  ********/
+
+
+#LblDisplayBookings table th {
+    font-size: 13px;
+    text-align: left;
+}
+#LblDisplayBookings table td {
+    font-size: 13px;
+}
+
+#LblDisplayBookings table .number{
+    width: 30px;
+}
+#LblDisplayBookings table .status{
+    width: 90px;
+}
+#LblDisplayBookings table .pickup{
+    width: 100px;
+}
+#LblDisplayBookings table .via{
+    width: 100px;
+}
+#LblDisplayBookings table .via input[type=text]{
+    width: 90px;
+    height: 20px;
+    padding: 0;
+    margin: 0;
+}
+#LblDisplaySharings table .button{
+    width: 70px;
+}
+
+/******All Bookings Table Style********/
+
+#LblSharingsBook table th {
+    font-size: 13px;
+    text-align: left;
+}
+#LblSharingsBook table td {
+    font-size: 13px;
+}
+
+#LblSharingsBook table .number{
+    width: 30px;
+}
+#LblSharingsBook table .status{
+    width: 50px;
+}
+#LblSharingsBook table .pickup{
+    width: 100px;
+}
+#LblSharingsBook table .via{
+    width: 100px;
+}
+#LblSharingsBook table .via input[type=text]{
+    width: 90px;
+    height: 20px;
+    padding: 0;
+    margin: 0;
+}
+#LblSharingsBook table .destination{
+    width: 100px;
+}
+#LblSharingsBook table .destination input[type=text]{
+    width: 90px;
+    height: 20px;
+    padding: 0;
+    margin: 0;
+}
+#LblSharingsBook table .sharingdate{
+    width: 100px;
+}
+#LblSharingsBook table .sharingdate input[type=text]{
+    width: 90px;
+    height: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+#LblSharingsBook table .seats{
+    width: 40px;
+}
+#LblSharingsBook table .seatsbooked{
+    width: 90px;
+}
+#LblSharingsBook table .button{
+    width: 70px;
 }

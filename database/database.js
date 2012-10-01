@@ -129,25 +129,26 @@ if(!localStorage.taffy_DB){
             var SharingsTable_Insert = 
                 this.DB.insert(
             {
-                    "id":[0, 1, 2],
-                    "member_id":[ this.DB().get()[0].id[1], this.DB().get()[0].id[1], this.DB().get()[0].id[2] ],
-                    "car_id":[ this.DB().get()[0].id[1], this.DB().get()[0].id[1], this.DB().get()[0].id[0]],
-                    "SHstatus_id":[ this.DB().get()[5].id[1], this.DB().get()[5].id[1], this.DB().get()[5].id[1] ],
-                    "pickup_id":[ this.DB().get()[2].id[2], this.DB().get()[2].id[2], this.DB().get()[2].id[1]],
-                    "via":["Gentofte", "Charlottelund", "Rødovre"],
-                    "destination":["Nørreport", "Amager", "Hillerod"],
-                    "sharing_datetime":["30/09/2012", "01/11/2012", "04/11/2012"],
-                    "seats":[3, 2, 2],
-                    "status":[1, 1, 1]
+                    "id":[0, 1, 2, 3],
+                    "member_id":[ this.DB().get()[0].id[1], this.DB().get()[0].id[1], this.DB().get()[0].id[2] , this.DB().get()[0].id[2] ],
+                    "car_id":[ this.DB().get()[0].id[1], this.DB().get()[0].id[1], this.DB().get()[0].id[0] , this.DB().get()[0].id[0]],
+                    "SHstatus_id":[ this.DB().get()[5].id[1], this.DB().get()[5].id[1], this.DB().get()[5].id[1], this.DB().get()[5].id[1] ],
+                    "pickup_id":[ this.DB().get()[2].id[2], this.DB().get()[2].id[2], this.DB().get()[2].id[1], this.DB().get()[2].id[1]],
+                    "via":["Gentofte", "Charlottelund", "Rødovre" , "Vanlose"],
+                    "destination":["Nørreport", "Amager", "Hillerod", "Kastrup"],
+                    "sharing_datetime":["30/09/2012", "01/11/2012", "04/11/2012", "05/11/2012"],
+                    "seats":[3, 2, 2, 2],
+                    "status":[1, 1, 1, 1]
             });
 
 
             var BookingsTable_Insert = 
                 this.DB.insert(
             {
-                    "member_id":[], 
-                    "sharing_id":[], 
-                    "made_date":[]
+                    "id":[0, 1],
+                    "member_id":[this.DB().get()[0].id[1], this.DB().get()[0].id[1]], 
+                    "sharing_id":[this.DB().get()[6].id[2], this.DB().get()[6].id[3]], 
+                    "made_date":["28/09/2012" , "28/09/2012"]
             });
 
             var ConfirmationsTable_Insert = 
