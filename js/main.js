@@ -1,10 +1,12 @@
 var user = oDBmembers();
 var car = oDBcars();
+var pickup_places = oDBpickup_places();
 var sharings = oDBsharings();
 var sharingStatus = oDBsharingsStatuses();
 var bookings = oDBbookings();
 var login;
- 
+
+
 function oDBmembers(ID) {
     var oDBmember = new DBmembers(ID);
     return oDBmember;
@@ -12,6 +14,10 @@ function oDBmembers(ID) {
 function oDBcars(M_ID){
     var oDBcar = new DBcars(M_ID);
     return oDBcar;
+}
+function oDBpickup_places(P_ID){
+    var oDBpickup_place = new DBpickup_places(P_ID);
+    return oDBpickup_place;
 }
 function oDBsharings(M_ID) {
     var oDBsharing = new DBsharings(M_ID);
@@ -36,72 +42,75 @@ $.CreatePickupLocations = (function (){
         }
 })();
 
-$.CreateAllSharingsTable = function(){
+$.CreateUserSharingsTable = function(){
     var allSharings = aSharingsParser();
-    var theadRow = "<tr><th>Nr.</th><th>Status</th><th>Pickup Location</th><th >Via</th><th>Destination</th><th>Sharing Date</th><th>Seats</th><th>Booked Seats</th></tr>"
-    $('<table>', {'id': 'TxtSharingsTable', "class": 'MarginTop10 MarginAuto TxtSharingsTable'}).appendTo("#LblDisplaySharings");
-    $("#TxtSharingsTable").append("<thead>" , "<tbody>");
-    $("#TxtSharingsTable thead").append(theadRow);
-   for (i in allSharings ){
-        var count = Number(i)+1;
-        var tbodyRow = "<tr id=\"EditRow" +allSharings[i].id+"\">"+
-                                    "<td class=\"number\">"+ count +"</td>"+
+    var theadRow = "<tr><th>Status</th><th>Pickup Location</th><th >Via</th><th>Destination</th><th>Sharing Date</th><th>Seats</th><th>Booked Seats</th></tr>"
+    $('<table>', {'id': 'TxtUserSharingsTable', "class": 'MarginTop10 MarginAuto TxtUserSharingsTable'}).appendTo("#LblDisplayUserSharings");
+    $("#TxtUserSharingsTable").append("<thead>" , "<tbody>");
+    $("#TxtUserSharingsTable thead").append(theadRow);
+    for (i in allSharings ){
+        if(allSharings[i].status == 1){
+            var tbodyRow = "<tr id=\"EditRow" +allSharings[i].id+"\">"+
                                     "<td class=\"status\">"+allSharings[i].SHstatus_id +"</td>"+
-                                    "<td class=\"pickup\">"+allSharings[i].pickup_id+"</td>"+
+                                    "<td class=\"pickup\">"+ allSharings[i].pickup_id +"</td>"+
                                     "<td class=\"via\">" +allSharings[i].via+"</td>"+
                                     "<td class=\"destination\">"+allSharings[i].destination+"</td>"+
                                     "<td class=\"sharingdate\">"+allSharings[i].sharing_datetime+"</td>"+
                                     "<td class=\"seats\">"+allSharings[i].seats+"</td>"+
                                     "<td class=\"seatsbooked\">Booked Seats</td>"+
-                                    "<td class=\"button\"><button id=\"BtnEdit"+count+"\" class=\"BtnEdit\">Edit</button></td>"+
-                                    "<td class=\"button\"><button id=\"BtnDelete"+count+"\" class=\"BtnDelete\">Delete</button></td>"+
+                                    "<td class=\"button\"><button id=\"BtnEdit"+allSharings[i].id+"\" class=\"BtnEdit\">Edit</button></td>"+
+                                    "<td class=\"button\"><button id=\"BtnDelete"+allSharings[i].id+"\" class=\"BtnDelete\">Delete</button></td>"+
                                     "</tr>";
-         $(tbodyRow).appendTo("#TxtSharingsTable tbody");                       
-}
+            $(tbodyRow).appendTo("#TxtUserSharingsTable tbody");                     
+        }
+    }
 }
 
-$.CreateBookingsTable = function(){
+$.CreateUserBookingsTable = function(){
     var allBookings = aBookingsParser();
-    var theadRow = "<tr><th>Nr.</th><th>Member_ID</th><th>Sharings_ID</th><th >Date Made</th></tr>"
-    $('<table>', {'id': 'TxtBookingsTable', "class": 'MarginTop10 MarginAuto TxtSharingsTable'}).appendTo("#LblDisplayBookings");
-    $("#TxtBookingsTable").append("<thead>" , "<tbody>");
-    $("#TxtBookingsTable thead").append(theadRow);
+    var theadRow = "<tr><th>Sharing ID</th><th>Creator</th><th>Member Booked</th><th >Date Made</th><th >Booking Date</th></tr>"
+    $('<table>', {'id': 'TxtUserBookingsTable', "class": 'MarginTop10 MarginAuto TxtSharingsTable'}).appendTo("#LblDisplayUserBookings");
+    $("#TxtUserBookingsTable").append("<thead>" , "<tbody>");
+    $("#TxtUserBookingsTable thead").append(theadRow);
    for (i in allBookings ){
         var count = Number(i)+1;
         var tbodyRow = "<tr id=\"EditRow" +allBookings[i].id+"\">"+
-                                    "<td class=\"number\">"+ count +"</td>"+
-                                    "<td class=\"status\">"+allBookings[i].member_id +"</td>"+
-                                    "<td class=\"pickup\">"+allBookings[i].sharing_id+"</td>"+
+                                    "<td class=\"number\">"+ allBookings[i].sharing_id +"</td>"+
+                                    "<td class=\"status\">"+allBookings[i].book_member_id +"</td>"+
+                                    "<td class=\"pickup\">"+allBookings[i].sharing_member_id+"</td>"+
                                     "<td class=\"via\">" +allBookings[i].made_date+"</td>"+
-                                    "<td class=\"button\"><button id=\"BtnBookDelete"+count+"\" class=\"BtnBook\">Delete</button></td>"+
+                                    "<td class=\"via\">" +allBookings[i].booking_date+"</td>"+
+                                    "<td class=\"button\"><button id=\"BtnBookDelete"+allBookings[i].id+"\" class=\"BtnBook\">Delete</button></td>"+
                                     "</tr>";
-         $(tbodyRow).appendTo("#TxtBookingsTable tbody");                       
-}
+         $(tbodyRow).appendTo("#TxtUserBookingsTable tbody");                       
+    }
 }
 
-$.CreateAvailableBookingsTable = (function(){
-    var allAvailableSharings = DB[6].id;
-    var theadRow = "<tr><th>Nr.</th><th>Status</th><th>Pickup Location</th><th >Via</th><th>Destination</th><th>Sharing Date</th><th>Seats</th><th>Booked Seats</th></tr>"
-    $('<table>', {'id': 'TxtBookSharingsTable', "class": 'MarginTop10 MarginAuto TxtSharingsTable'}).appendTo("#LblSharingsBook");
-    $("#TxtBookSharingsTable").append("<thead>" , "<tbody>");
-    $("#TxtBookSharingsTable thead").append(theadRow);
-   for (i in allAvailableSharings ){
-   
-        var count = Number(i)+1;
-        var tbodyRow = "<tr id=\"BookingId=" +DB[6].id[i]+"\">"+
-                                    "<td class=\"number\">"+ count +"</td>"+
-                                    "<td class=\"status\">"+DB[6].SHstatus_id[i] +"</td>"+
-                                    "<td class=\"pickup\">"+DB[6].pickup_id[i]+"</td>"+
-                                    "<td class=\"via\">" +DB[6].via[i]+"</td>"+
-                                    "<td class=\"destination\">"+DB[6].destination[i]+"</td>"+
-                                    "<td class=\"sharingdate\">"+DB[6].sharing_datetime[i]+"</td>"+
-                                    "<td class=\"seats\">"+DB[6].seats[i]+"</td>"+
-                                    "<td class=\"seatsbooked\">Booked Seats</td>"+
-                                    "<td class=\"button\"><button id=\"BtnBook"+count+"\" class=\"BtnBook\">Book</button></td>"+
-                                    "</tr>";
-         $(tbodyRow).appendTo("#TxtBookSharingsTable tbody");                       
-}
-})();
+$('#LblDisplaySharingsToBook').ready(function(){
+    $.CreateBookings = (function(){
+    //    console.log($("div#LblDisplaySharingsToBook").children());
+        var allBookSharings = oDBsharings().GetAllSharings();
+        var theadRow = "<tr><th>ID</th><th>Status</th><th>Pickup Location</th><th >Via</th><th>Destination</th><th>Sharing Date</th><th>Seats</th><th>Booked Seats</th></tr>"
+        $('<table>', {'id': 'TxtBookSharingsTable', "class": 'MarginTop10 MarginAuto TxtSharingsTable'}).appendTo("#LblDisplaySharingsToBook");
+        $("#TxtBookSharingsTable").append("<thead>" , theadRow , "<tbody>");
+    //    $("#TxtBookSharingsTable thead").append(theadRow);
+            for (i in allBookSharings ){
+                var tbodyRow = "<tr id=\"BookingId=" +allBookSharings[i].id+"\">"+
+                                            "<td class=\"number\">"+allBookSharings[i].id +"</td>"+
+                                            "<td class=\"status\">"+allBookSharings[i].SHstatus_id +"</td>"+
+                                            "<td class=\"pickup\">"+ allBookSharings[i].pickup_id+"</td>"+
+                                            "<td class=\"via\">" +allBookSharings[i].via+"</td>"+
+                                            "<td class=\"destination\">"+allBookSharings[i].destination+"</td>"+
+                                            "<td class=\"sharingdate\">"+allBookSharings[i].sharing_datetime+"</td>"+
+                                            "<td class=\"seats\">"+allBookSharings[i].seats+"</td>"+
+                                            "<td class=\"seatsbooked\">Booked Seats</td>"+
+                                            "<td class=\"button\"><button id=\"BtnBook"+allBookSharings[i].id+"\" class=\"BtnBook\">Book</button></td>"+
+                                            "</tr>";
+                 $(tbodyRow).appendTo("#TxtBookSharingsTable tbody");                       
+            }
+    })();    
+});
+    
 
 
 
@@ -161,11 +170,11 @@ $.CreateAvailableBookingsTable = (function(){
                     bookings = oDBbookings(aUserParser()[0])
 
                     bookings.SaveBookingsOnLogin();
-                    sharings.SaveSharingsOnLogin();
+                    sharings.SaveSharingsOnLogin();    
                     car.SaveCarOnLogin();
                     console.log("You loged in as an USER");
-                    $.CreateAllSharingsTable();
-                    $.CreateBookingsTable();
+                    $.CreateUserSharingsTable();
+                    $.CreateUserBookingsTable();
                     $.AddListenerToTableEdit();
                     $.AddListenerDelete()
                     
@@ -213,17 +222,17 @@ $.CreateAvailableBookingsTable = (function(){
             
             if(sBtnViewSharingsId.val() == "Hide Sharings"){
                 $("#TxtSharingsTable").remove();
-                $.CreateAllSharingsTable();
+                $.CreateUserSharingsTable();
             } else {
                 sBtnViewSharingsId.val("Hide Sharings")
-                $.CreateAllSharingsTable();
+                $.CreateUserSharingsTable();
             }
     });
     
     // VIEW SHARINGS
 $("#BtnViewSharings").click(function(){
     var sBtnId = $("#BtnViewSharings")
-    $.CreateAllSharingsTable();
+    $.CreateUserSharingsTable();
     if (sBtnId.val()=="View Sharings"){
         aSharingsParser()
         sBtnId.val("Hide Sharings");
@@ -240,75 +249,48 @@ $("#BtnViewSharings").click(function(){
 $.AddListenerToTableEdit = function () {
 //if($("#BtnViewSharings").val() == "Hide Sharings"){
             $(".BtnEdit").click(function(){
-                var trElements = $("table#TxtSharingsTable tbody tr");
-                var iTbodyLenght = trElements.length
-                 var editField1;
-                 var editField2;
-                 var editField3;
-                 for (i =0; i<iTbodyLenght; i++){
-                 var counter = Number(i);
-                 var sBtnId = "BtnEdit"+(Number(i)+1);
-                      if($(this).attr("id") == sBtnId){
-//                          console.log($(this).attr("id"));
-//                         console.log(trElements[i].id);
-                        if($("#" + sBtnId).html() == "Edit"){
-                            $("#" + sBtnId).html("Update");
-//                            console.log();
-                            editField1 = trElements[i].children[3];
-                            editField2 = trElements[i].children[4];
-                            editField3 = trElements[i].children[5];
-                        
-//                            console.log(editField);
-                            $(editField1).replaceWith($('<td class="via">' + '<input type="text" value="'+ editField1.innerHTML +'"/>' + '</td>' ));
-                            $(editField2).replaceWith($('<td class="destination">' + '<input type="text" value="'+ editField2.innerHTML +'"/>'+'</td>' ));
-                            $(editField3).replaceWith($('<td class="sharingdate">' + '<input type="text" value="'+ editField3.innerHTML +'"/>'+'</td>' ));
-                        } else {
-                            $("#" + sBtnId).html("Edit");
-                            editField1 = trElements[i].children[3];
-                            editField2 = trElements[i].children[4];
-                            editField3 = trElements[i].children[5];
-                            
-                            $(editField1).replaceWith('<td class="via">' + editField1.childNodes[0].value + '</td>')
-                            $(editField2).replaceWith('<td class="destination">' + editField2.childNodes[0].value + '</td>')
-                            $(editField3).replaceWith('<td class="sharingdate">' + editField3.childNodes[0].value + '</td>')
-                            
-                            var EditedRowId = trElements[i].id;
-                            var SharingsIdfromRow = EditedRowId.split("EditRow")[1];
-                            var Sharings_Id = Number(SharingsIdfromRow);
-                            
-                            oDBsharings().UpdateSharing(Sharings_Id);
-                            
-                        }
-                    }
-                    }
-                 });
+                 var rowID = $(this).parents("tr").attr("id");
+                 var rowIDNumber = rowID.split("EditRow")[1];
+                 var btnIDNumber = $(this).attr("id").split("BtnEdit")[1];
+                 var editField1 = $(this).parents("tr").children(".via");
+                 var editField2 = $(this).parents("tr").children(".destination");
+                 var editField3 = $(this).parents("tr").children(".sharingdate");
+                 if(rowIDNumber == btnIDNumber){
+                     if($(this).html() == "Edit"){
+                         $(this).html("Update"); 
+                         $(editField1).replaceWith($('<td class="via">' + '<input type="text" value="'+ editField1.html() +'"/>' + '</td>' ));
+                         $(editField2).replaceWith($('<td class="destination">' + '<input type="text" value="'+ editField2.html() +'"/>'+'</td>' ));
+                         $(editField3).replaceWith($('<td class="sharingdate">' + '<input type="text" value="'+ editField3.html() +'"/>'+'</td>' ));
+                     } else {
+                         $(this).html("Edit");
+                         var replaceVia = editField1.children("input").val();
+                         var replaceDestination = editField2.children("input").val();
+                         var replaceDate = editField3.children("input").val();
+                         
+                         $(editField1).replaceWith('<td class="via">' + replaceVia + '</td>');
+                         $(editField2).replaceWith('<td class="destination">' + replaceDestination + '</td>');
+                         $(editField3).replaceWith('<td class="sharingdate">' + replaceDate + '</td>');
+                         
+                         oDBsharings().UpdateUserSharings(Number(rowIDNumber) , replaceVia , replaceDestination , replaceDate);
+                     }
+                 }
+             });
 //}
 };
 
+
+
 $.AddListenerDelete = function () {
 //    if($("#BtnViewSharings").val() == "Hide Sharings"){
-
             $(".BtnDelete").click(function(){
-                var trElements = $("table tbody tr");
-                var iTbodyLenght = trElements.length
-                 for (i =0; i<iTbodyLenght; i++){
-                     var counter = Number(i)+1;
-                     var sBtnId = "BtnDelete"+(Number(i)+1);
-                     var RowId = $(this).parent().parent().attr("id");
-//                     console.log(RowId);
-                      if($(this).attr("id") == sBtnId){
-                          console.log("#"+RowId);
-//                          console.log(trElements);
-                         trElements.remove("#"+RowId);
-//                        $(this).parent().parent().remove();
-//                        
-                        var toDeleteRowId = trElements[i].id;
-//                        
-                        var SharingsIdfromRow = toDeleteRowId.split("EditRow")[1];
-                        var Sharings_Id = Number(SharingsIdfromRow);
-                        oDBsharings().DeleteSharing(Sharings_Id);
-                    }
+                var rowID = $(this).parents("tr").attr("id");
+                var rowIDNumber = rowID.split("EditRow")[1];
+                var btnIDNumber = $(this).attr("id").split("BtnDelete")[1];
+                if(rowIDNumber == btnIDNumber){
+                    $("#"+rowID).remove();
+                    oDBsharings().DeleteUserSharing(Number(rowIDNumber))
                 }
+
             });
 //    }
 }
@@ -374,23 +356,21 @@ $.AddListenerDelete = function () {
             $.Disabled("LoginPassword");
             $.Disabled("TxtLogin");
             $.deleteAttr("TxtLogout", "disabled");
-            $.CreateAllSharingsTable();
-            $.CreateBookingsTable();
+            $.CreateUserSharingsTable();
+            $.CreateUserBookingsTable();
             $.AddListenerToTableEdit();
             $.AddListenerDelete();
-            
-            
         } else {
             console.log("noone is loged int");
         }
     })();
     
+   
     $.DestroyTables = function (){
-        $("#TxtSharingsTable").empty();  //("#TxtSharingsTable");
-        $("#TxtBookingsTable").empty();  //("#TxtSharingsTable");
+        $("#TxtUserSharingsTable").empty();  //("#TxtSharingsTable");
+        $("#TxtUserBookingsTable").empty();  //("#TxtSharingsTable");
     }
     
-
 
 // FIXME: Think about how to save database without localStorage, so that database will be available to all users
 // FIXME: Later on implement encryption for users password safety user sha1 + salt combination

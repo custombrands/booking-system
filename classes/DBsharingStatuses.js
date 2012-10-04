@@ -15,7 +15,7 @@ function DBsharingStatuses(status_id){
            iIdsLength = ids.length;       
            if (typeof status_id == "number"){
                    for (i = 0; i < iIdsLength; i++){
-                       if(status_id == i){
+                       if(status_id == ids[i]){
                            
                            // SELECTS SPECEFIC ROW BASED ON m_type_id
                            // Returns an array selected based on m_type_id

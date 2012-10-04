@@ -196,7 +196,6 @@ function DBmembers(iId){
                         return true;
                     } 
                 }
-                console.log("user does not exist");
                 return false;
         }
         DBmembers.prototype.Logout = function () {

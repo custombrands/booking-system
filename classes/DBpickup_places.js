@@ -19,7 +19,7 @@ function DBpickup_places(p_id){
            var query;
            if (typeof p_id == "number"){
                    for (i = 0; i < iIdsLength; i++){
-                       if(p_id == i){
+                       if(p_id == ids[i]){
                            
                            // SELECTS SPECEFIC ROW BASED ON m_type_id
                            // Returns an array selected based on m_type_id

@@ -4,7 +4,7 @@
  * @constructor Database builder for Logedin User SHarings
  */
 // DONE Sharings class, MAIN FUNCTIONALITY (Getters, Setters);
-function DBsharings(m_id){
+function DBsharings(m_id, sh_id){
         
         /* GLOBAL VARIABLES*/
         var id;
@@ -20,21 +20,64 @@ function DBsharings(m_id){
         
         var sharings;
                 
-        DBsharings.prototype.DatabaseContructor = function (m_id){
-            
+        DBsharings.prototype.DatabaseContructor = function (m_id, sh_id){
+           
+           var SharingIds = DB[6].id;
+           var MainDBidIndex
+           var iSharingsIdsLength = SharingIds.length;
+           if(typeof sh_id == "number"){
+               for(i=0; i<iSharingsIdsLength; i++){
+                   if(sh_id == SharingIds[i]){
+                       MainDBidIndex = SharingIds.indexOf(SharingIds[i])
+                       this.id = SharingIds[MainDBidIndex];
+                       this.member_id = new DBmembers(DB[6].member_id[MainDBidIndex]);
+                       this.car_id = new DBcars(DB[6].member_id[MainDBidIndex]);
+                       this.SHstatus_id = new DBsharingStatuses(DB[6].SHstatus_id[MainDBidIndex]);
+                       this.pickup_id = new DBpickup_places(DB[6].pickup_id[MainDBidIndex]);
+                       this.via = DB[6].via[MainDBidIndex];
+                       this.destination = DB[6].destination[MainDBidIndex];
+                       this.sharing_datetime = DB[6].sharing_datetime[MainDBidIndex];
+                       this.seats = DB[6].seats[MainDBidIndex];
+                       this.status = DB[6].status[MainDBidIndex];
+                   }
+               }
+           } else if(localStorage.User){
+                 for(i=0; i<iSharingsIdsLength; i++){
+                   if(sh_id == SharingIds[i]){
+                       MainDBidIndex = SharingIds.indexOf(SharingIds[i])
+                       this.id = SharingIds[MainDBidIndex];
+                       this.member_id = new DBmembers(DB[6].member_id[MainDBidIndex]);
+                       this.car_id = new DBcars(DB[6].member_id[MainDBidIndex]);
+                       this.SHstatus_id = new DBsharingStatuses(DB[6].SHstatus_id[MainDBidIndex]);
+                       this.pickup_id = new DBpickup_places(DB[6].pickup_id[MainDBidIndex]);
+                       this.via = DB[6].via[MainDBidIndex];
+                       this.destination = DB[6].destination[MainDBidIndex];
+                       this.sharing_datetime = DB[6].sharing_datetime[MainDBidIndex];
+                       this.seats = DB[6].seats[MainDBidIndex];
+                       this.status = DB[6].status[MainDBidIndex];
+                   }
+               }               
+           }
+           
            this.sharings = [];
            var iSharingsLength = this.sharings.length;
-           var MemberIds = DB[6].member_id;
-           var MemberiIdsLength = MemberIds.length;
+           
            if (typeof m_id == "number"){
+               var MemberIds = DB[6].member_id;
+               var MemberiIdsLength = MemberIds.length;
+               var oUser = new DBmembers(m_id);
+               var oCar = new DBcars(m_id);
                    for (i = 0; i < MemberiIdsLength; i++ ){
                        if(m_id == MemberIds[i]){
+                           var oShstatus = new DBsharingStatuses(DB[6].SHstatus_id[i]);
+                           var sShstatus = JSON.stringify(oShstatus);
+                           var oPickupPlace = new DBpickup_places(DB[6].pickup_id[i]);
                            var sharings = {
                             id:                          DB[6].id[i],
-                            member_id:             DB[6].member_id[i],
-                            car_id:                     DB[6].car_id[i],
-                            SHstatus_id:            DB[6].SHstatus_id[i],
-                            pickup_id:                DB[6].pickup_id[i],
+                            member_id:             oUser.GetName(),
+                            car_id:                     oCar.GetBrand(),
+                            SHstatus_id:            oShstatus.GetName(),
+                            pickup_id:                oPickupPlace.GetName(),
                             via:                          DB[6].via[i],
                             destination:             DB[6].destination[i],
                             sharing_datetime:   DB[6].sharing_datetime[i],
@@ -46,12 +89,10 @@ function DBsharings(m_id){
                    }
             } else if (localStorage.User_Sharings){
                 var aUserSharings = JSON.parse(localStorage.User_Sharings);
-                var iSharingslength = aUserSharings.length
                 for (var i in aUserSharings){
-                    this.sharings.splice(iSharingslength, 0, aUserSharings[i]);
+                    this.sharings.splice(iSharingsLength, 0, aUserSharings[i]);
                 }
             }
-//            console.log(this.sharings);
             return true;
         }        
         
@@ -107,6 +148,28 @@ function DBsharings(m_id){
             return this.status;
         }
         DBsharings.prototype.GetAllSharings = function () {
+            var SharingIds = DB[6].id;
+            var iAllSharingsLenght = this.sharings.length;
+            for(i in SharingIds){
+                var iMaindDBIndex = DB[6].id.indexOf(SharingIds[i]);
+                    var oUser = new DBmembers(DB[6].member_id[iMaindDBIndex]);
+                    var oCar = new DBcars(DB[6].member_id[iMaindDBIndex]);
+                    var oShstatus = new DBsharingStatuses(DB[6].SHstatus_id[iMaindDBIndex]);
+                    var oPickupPlace = new DBpickup_places(DB[6].pickup_id[iMaindDBIndex]);
+                   var sharings = {
+                    id:                          DB[6].id[iMaindDBIndex],
+                    member_id:             oUser.GetName(),
+                    car_id:                     oCar.GetBrand(),
+                    SHstatus_id:            oShstatus.GetName(),
+                    pickup_id:                oPickupPlace.GetName(),
+                    via:                          DB[6].via[iMaindDBIndex],
+                    destination:             DB[6].destination[iMaindDBIndex],
+                    sharing_datetime:   DB[6].sharing_datetime[iMaindDBIndex],
+                    seats:                      DB[6].seats[iMaindDBIndex],
+                    status:                     DB[6].status[iMaindDBIndex]    
+                   }
+                   this.sharings.splice(iAllSharingsLenght, 0, sharings);
+            }
             return this.sharings;
         }
         
@@ -163,52 +226,43 @@ function DBsharings(m_id){
 //            return true;
         }
         
-        DBsharings.prototype.UpdateSharing = function (sharing_id){
-                var iSheringsLength = this.sharings.length
-                for (i = 0; i < iSheringsLength; i++ ){
+        DBsharings.prototype.UpdateUserSharings = function (sharing_id , sVia , sDestination , sDate){
+                var iSharingsLength = this.sharings.length
+                for (i = 0; i < iSharingsLength; i++ ){
                     if(this.sharings[i].id == sharing_id){
-                        var tableRow = document.getElementById("EditRow"+sharing_id).children;
-                        var sVia = tableRow[3].innerHTML;
-                        var sDestination = tableRow[4].innerHTML;
-                        var sDate = tableRow[5].innerHTML;
                         
                         this.sharings[i].via = sVia;
                         this.sharings[i].destination = sDestination;
                         this.sharings[i].sharing_datetime = sDate;
                         
-                        DB[6].via.splice(sharing_id, 1, sVia);
-                        DB[6].destination.splice(sharing_id , 1, sDestination);
-                        DB[6].sharing_datetime.splice(sharing_id, 1, sDate);
+                        var MainDBSharingIndex = DB[6].id.indexOf(this.sharings[i].id);
+                        DB[6].via[MainDBSharingIndex] = sVia;
+                        DB[6].destination[MainDBSharingIndex] = sDestination;
+                        DB[6].sharing_datetime[MainDBSharingIndex] = sDate;
+                        
+                        localStorage.setItem("User_Sharings", JSON.stringify(this.sharings));
+                        localStorage.setItem("taffy_DB", JSON.stringify(DB));
                     }
                 }
-                localStorage.setItem("User_Sharings", JSON.stringify(this.sharings));
-                localStorage.setItem("taffy_DB", JSON.stringify(DB));
         }
         
-        DBsharings.prototype.DeleteSharing = function(sharing_id) {
-            var iSheringsLength = this.sharings.length
-            for (i = 0; i < iSheringsLength; i++ ){
+        DBsharings.prototype.DeleteUserSharing = function(sharing_id) {
+            var iSharingsLength = this.sharings.length
+            for (i = 0; i < iSharingsLength; i++ ){
                     if(this.sharings[i].id == sharing_id){
+                        var SharingIndex = this.sharings.indexOf(this.sharings[i]);
+                        this.sharings[SharingIndex].status = 0;
                         
-                        this.sharings.splice(this.sharings.indexOf(this.sharings[i]), 1);
-                        console.log(this.sharings);
+                        var sSharings = JSON.stringify(this.sharings);
+                        localStorage.setItem("User_Sharings", sSharings);
                         
-                        DB[6].id.splice(sharing_id, 1);
-                        DB[6].car_id.splice(sharing_id, 1);
-                        DB[6].SHstatus_id.splice(sharing_id, 1);
-                        DB[6].pickup_id.splice(sharing_id, 1);
-                        DB[6].via.splice(sharing_id, 1);
-                        DB[6].destination.splice(sharing_id, 1);
-                        DB[6].sharing_datetime.splice(sharing_id, 1);
-                        DB[6].seats.splice(sharing_id, 1);
-                        DB[6].status.splice(sharing_id, 1);
-                         localStorage.setItem("User_Sharings", JSON.stringify(this.sharings));
-                        localStorage.setItem("taffy_DB", JSON.stringify(DB));
-     
+                        var MainDBSharingIndex = DB[6].id.indexOf(this.sharings[i].id);
+                        DB[6].status[MainDBSharingIndex] = 0;
+                        
+                        var sMainDB = JSON.stringify(DB);
+                        localStorage.setItem("taffy_DB", sMainDB);
                     }
                 }
-               
-//                console.log(this.sharings);
         }
         
         
@@ -227,7 +281,7 @@ function DBsharings(m_id){
 
 
 
-        this.DatabaseContructor(m_id);
+        this.DatabaseContructor(m_id, sh_id);
 
 }
 
