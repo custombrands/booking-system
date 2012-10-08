@@ -93,9 +93,15 @@ function DBcars(m_id){
         }
         
         DBcars.prototype.SaveCarOnLogin = function(){
-            
-            var aCar = [this.id , this.member_id.GetId() , this.reg_number , this.brand , this.model , this.color , this.seats];
-            localStorage.setItem("User_Car", JSON.stringify(aCar));
+            var CarMemberIds = DB[1].member_id;
+            var LogedInUserId = this.member_id.GetId();
+            for(var i in CarMemberIds){
+                if(CarMemberIds[i] == LogedInUserId){
+                    var aCar = [this.id , this.member_id.GetId() , this.reg_number , this.brand , this.model , this.color , this.seats];
+                    localStorage.setItem("User_Car", JSON.stringify(aCar));
+                    console.log(aCar);
+                }
+            }
         }
         
         

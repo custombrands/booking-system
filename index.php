@@ -1,30 +1,34 @@
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Title Here</title>
+        <title>Car Share - Your Open Source for Car Sharing</title>
         <meta charset="utf-8" />
+        <!--<link rel="stylesheet" href="css/normalize.css" />-->
         <link rel="stylesheet" href="css/Style.css" />
         <link rel="stylesheet" href="css/main.css" />
         <link rel="stylesheet" href="css/bootstrap/bootstrap.css" />
+        <script>
+            
+        </script>
     </head>
         
-    <body>
+    <body id="body">
+
         <div id="TopContainer">
             <div class="CenterColumn">
                 <div id="Header" class="">
-                    <div id="Logo"><a href="index.html"><img src="img/Car-Logo.png" alt=""/></a></div><!-- end Logo div -->
-                    
+                    <div id="Logo"><a href="index.php"><img src="img/Car-Logo.png" alt=""/></a></div><!-- end Logo div -->
                         <div id="Navigation">
                             <ul id="nav" >
-                                <li ><a href="index.html">HOME<span>the starting page</span></a></li>
-                                <li><a href="info.html">INFO<span>about us</span></a></li>
-                                <li><a href="rides.html">RIDES<span>search them all</span></a></li>
-                                <li><a href="sharing.html">SHARE<span>your car</span></a></li>
+                                <li><a href="index.html">HOME</a></li>
+                                <li><a href="info.html">INFO</a></li>
+                                <li><a href="rides.html">RIDES</a></li>
+                                <li><a href="sharing.html">SHARE</a></li>
                             </ul>
-                            <ul></ul>
                         </div><!-- end Navigation -->
                     
-                    <div class="Clear"></div>
+                    <!--<div class="Clear"></div>-->
                 </div><!--end Header div-->
                 
                 <div id="VideoContainer">
@@ -144,66 +148,26 @@
         
             
         <!--<script type="text/javascript" src="js/main.js"></script>-->
-         <script type="text/javascript" src="js/jquery-1.8.1.js"></script>
+        <script type="text/javascript" src="js/taffy.js"></script>
+        <script type="text/javascript" src="js/jquery-1.8.1.js"></script>
         <script type="text/javascript" src="js/cufon-yui.js"></script>
         <script type="text/javascript" src="js/swfobject.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
-        <script type="text/javascript" src="js/NovocentoRegular_400.font.js"></script>
+        <script type="text/javascript" src="js/Bauh_400.font.js"></script>
+        <script type="text/javascript" src="database/database.js"></script>           
+        <script type="text/javascript" src="classes/DBsharingStatuses.js"></script>           
+        <script type="text/javascript" src="classes/DBpickup_places.js"></script>           
+        <script type="text/javascript" src="classes/DBm_types.js"></script>           
+        <script type="text/javascript" src="classes/DBsharings.js"></script>           
+        <script type="text/javascript" src="classes/DBmembers.js"></script>           
+        <script type="text/javascript" src="classes/DBbookings.js"></script>           
+        <script type="text/javascript" src="classes/DBcars.js"></script>           
+        <script type="text/javascript" src="js/main.js"></script>
+        <script type="text/javascript" src="js/ui-effects.js"></script>
         <script type="text/javascript">
-//            Cufon.replace('h1') ('h2')('h3') ('h4') ('h5') ('h6') ('.title') ('.text') ('#Navigation ul li', {hover: true, fontFamily: "NovocentoRegular"});
-               
-               
-               $("#PlayVideo").click(function(){
-                   $.ShowVideo();
-                });
+            Cufon.replace('#SignUpModal h1')('#Navigation ul li', {hover: true, fontFamily: "Bauh"});
                 
-                    $.ShowVideo =function(){
-                            var params = { allowScriptAccess: "always" };
-                            var attr = { id: "YTPlayer" };
-                            swfobject.embedSWF("http://www.youtube.com/v/2mt19JukTrk?version=3&enablejsapi=1&playerapiid=MyYTplayer&controls=0&showinfo=0&end=87&rel=0",
-                                                              "Presentation", "708", "398", "8", null, null, params, attr);
-                                                              $("#Video").css("padding", "0")
-                    };
-                    
-                    $("#PlayVideo").css("opacity", "0.4");
-                    $("#PlayVideo").hover(
-                        function(){
-                        $(this).fadeTo("500", "1")
-                        },
-                        function(){
-                        $(this).fadeTo("500", "0.4")
-                        }
-                    );
 
-             function onYouTubePlayerReady() {
-                      var ytplayer = document.getElementById("YTPlayer");
-                      ytplayer.addEventListener("onStateChange", "TrackPlaybackStatus");
-                      ytplayer.playVideo();
-                      console.log(ytplayer);
-            };
-            function TrackPlaybackStatus(newState) {
-                var ytplayer = document.getElementById("YTPlayer");
-                if(newState == 0) {
-                    console.log(newState);
-                       var img ='<img src="img/play.png" id="PlayVideo">';
-                       $("#Presentation object").replaceWith(img);
-                       $("#PlayVideo").css("opacity", "0.4");
-                       $("#PlayVideo").hover(
-                            function(){
-                            $(this).fadeTo("500", "1")
-                            },
-                            function(){
-                            $(this).fadeTo("500", "0.4")
-                            }
-                        );
-                            
-                            
-                }
-                    $("#PlayVideo").click(function(){
-                       $.ShowVideo();
-                    });
-           };
-            
         </script>
             
     </body>

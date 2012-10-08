@@ -2,7 +2,6 @@ function DBbookings (m_id){
     
         var id;
         var book_member_id;
-        var sharing_member_id
         var sharing_id;
         var made_date;
         
@@ -13,25 +12,26 @@ function DBbookings (m_id){
             
             this.bookings = [];
             var iBookingsLength = this.bookings.length;
-            var MemberIds = DB[7].member_id;
+            var MemberIds = DB[7].book_member_id;
             var MemberiIdsLength = MemberIds.length;
             if (typeof m_id == "number"){
                    for (i = 0; i < MemberiIdsLength; i++ ){
                        if(m_id == MemberIds[i]){
-                            var oUser = new DBmembers(DB[7].member_id[i]);
+//                            var MainDBindex = MemberIds.indexOf(m_id);
+                            var oUser = new DBmembers(DB[7].book_member_id[i]);
                             var oSharing = new DBsharings("", DB[7].sharing_id[i]);
-                           var bookings = {
-                            id:                          DB[7].id[i],
-                            book_member_id:   oUser.GetName(),
-                            sharing_member_id: oSharing.GetMember().GetName(),
-                            sharing_member_car: oSharing.GetCar().GetBrand(),
-                            car_number_plate: oSharing.GetCar().GetReg_Number(),
-                            sharing_id:             oSharing.GetId(),
-                            made_date:            DB[7].made_date[i],
-                            booking_date:        oSharing.GetDateTime()
-                           }
-                           this.bookings.splice(iBookingsLength, 0, bookings);
-//                           console.log("Loedin user has id: " + DB[7].id[i]);
+                            var booking = {
+                                id:                          DB[7].id[i],
+                                book_member_id:   oUser.GetName(),
+                                sharing_member_id: oSharing.GetMember().GetName(),
+                                sharing_member_car: oSharing.GetCar().GetBrand(),
+                                car_number_plate: oSharing.GetCar().GetReg_Number(),
+                                sharing_id:             oSharing.GetId(),
+                                made_date:            DB[7].made_date[i],
+                                booking_date:        oSharing.GetDateTime()
+                            }
+                            this.bookings.splice(iBookingsLength, 0, booking);
+////                           console.log("Loedin user has id: " + DB[7].id[i]);
                        } 
                    }
                    console.log(this.bookings);
@@ -86,9 +86,58 @@ function DBbookings (m_id){
             return this.bookings;
         }
         
-        DBbookings.prototype,AddBooking = function (){
+        DBbookings.prototype.AddBooking = function (user_id, sh_id){
+            var MainDBids = DB[7].id;
+            var iMainDBidsLength = MainDBids.length;
+            var oSharings  = new DBsharings("", sh_id);
+            var oUser = new DBmembers(user_id)
+            var id = iMainDBidsLength;
+            var book_member_id = oUser.GetId();
+            var sharing_member_id = oSharings.GetMember().GetId();
+            var sharing_member_car = oSharings.GetCar().GetBrand();
+            var car_number_plate = oSharings.GetCar().GetReg_Number();
+            var sharing_id = oSharings.GetId();
+
+                        
+            var CurrentDate = new Date();
+            var Day = CurrentDate.getDate();
+            var Month = CurrentDate.getMonth()+1;
+            var FullYear = CurrentDate.getFullYear();
+            if(Day<10){
+                Day='0'+Day;
+            }
+            var today = Day+'/'+Month+'/'+FullYear;
+            var made_date = today;
+            var booking_date = oSharings.GetDateTime();
+
             
+            var Booking = {
+                id:                 id,
+                book_member_id:     book_member_id,
+                sharing_member_id:  sharing_member_id,
+                sharing_member_car: sharing_member_car,
+                car_number_plate:   car_number_plate,
+                sharing_id:         sharing_id,
+                made_date:          made_date,
+                booking_date:       booking_date
+            }
+            
+            var aUserBookings = JSON.parse(localStorage.User_Bookings);
+            aUserBookings.push(Booking);
+            
+            DB[7].id.splice(iMainDBidsLength, 0, iMainDBidsLength);
+            DB[7].book_member_id.splice(iMainDBidsLength, 0, book_member_id);
+            DB[7].sharing_id.splice(iMainDBidsLength, 0, sharing_id);
+            DB[7].made_date.splice(iMainDBidsLength, 0, made_date);
+            
+            this.DatabaseContructor(user_id)
+            localStorage.setItem("User_Bookings", JSON.stringify(this.bookings));
+            localStorage.setItem("taffy_DB", JSON.stringify(DB));
+            console.log(aUserBookings);
+            console.log(DB[7]);
+            console.log(JSON.parse(localStorage.taffy_DB)[7]);
         }
+        
         
         DBbookings.prototype.GetAllBookings = function () {
             

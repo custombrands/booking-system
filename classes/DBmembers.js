@@ -143,43 +143,28 @@ function DBmembers(iId){
         
         DBmembers.prototype.EditUser = function (sBtnId) {
             var aUser = JSON.parse(localStorage.User);
-            
             var sName = this.GetElement("TxtUserName");
             var sLastname = this.GetElement("TxtUserLastName");
             var sEmail = this.GetElement("TxtUserEmail");
             var sPhone =  this.GetElement("TxtUserPhone");
-                        
-            if(localStorage.User && sBtnId == undefined){
-                console.log("Edit me");
+                aUser[1] = sName.value;
+                aUser[2] = sLastname.value;
+                aUser[3] = sEmail.value;
+                aUser[4] = sPhone.value;
+                localStorage.User = JSON.stringify(aUser);
                 console.log(aUser);
-                
-                sName.value = aUser[1];
-                sLastname.value = aUser[2];
-               sEmail.value = aUser[3];
-                sPhone.value = aUser[4];
-                return true;
-            }
-            else if(typeof sBtnId !== undefined){
-               
-                
-               console.log("Updated Me");
-               aUser.splice(0, 5, aUser[0], sName.value, sLastname.value, sEmail.value, sPhone.value)
-               localStorage.User = JSON.stringify(aUser);
-               console.log(aUser);
-               console.log(localStorage.getItem("User"));
-                
+                console.log(localStorage.getItem("User"));
                 console.log("---------------------------------------------------------");
                 console.log("Updated Me to main DB");
-                var updateID = DB[0].id[user.GetId()];
-                DB[0].name.splice(updateID, 1, aUser[1]);
-                DB[0].lastname.splice(updateID, 1, aUser[2]);
-                DB[0].email.splice(updateID, 1, aUser[3]);
-                DB[0].phone.splice(updateID, 1, aUser[4]);
+                var MainDBids = DB[0].id;
+                var updateID = DB[0].id[aUser[0]];
+                var IndexOfupdateID = MainDBids.indexOf(updateID);
+                DB[0].name.splice(IndexOfupdateID, 1, aUser[1]);
+                DB[0].lastname.splice(IndexOfupdateID, 1, aUser[2]);
+                DB[0].email.splice(IndexOfupdateID, 1, aUser[3]);
+                DB[0].phone.splice(IndexOfupdateID, 1, aUser[4]);
                 localStorage.taffy_DB = JSON.stringify(DB);
                 console.log(DB[0].name[updateID] +", " + DB[0].lastname[updateID] + " " +  DB[0].email[updateID]+" "+ DB[0].phone[updateID]);
-               return true;
-            }
-            return false;
         }
         
         DBmembers.prototype.Login = function (email, password){

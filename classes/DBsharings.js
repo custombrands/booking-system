@@ -156,21 +156,52 @@ function DBsharings(m_id, sh_id){
                     var oCar = new DBcars(DB[6].member_id[iMaindDBIndex]);
                     var oShstatus = new DBsharingStatuses(DB[6].SHstatus_id[iMaindDBIndex]);
                     var oPickupPlace = new DBpickup_places(DB[6].pickup_id[iMaindDBIndex]);
-                   var sharings = {
-                    id:                          DB[6].id[iMaindDBIndex],
-                    member_id:             oUser.GetName(),
-                    car_id:                     oCar.GetBrand(),
-                    SHstatus_id:            oShstatus.GetName(),
-                    pickup_id:                oPickupPlace.GetName(),
-                    via:                          DB[6].via[iMaindDBIndex],
-                    destination:             DB[6].destination[iMaindDBIndex],
-                    sharing_datetime:   DB[6].sharing_datetime[iMaindDBIndex],
-                    seats:                      DB[6].seats[iMaindDBIndex],
-                    status:                     DB[6].status[iMaindDBIndex]    
+                    var sharings = {
+                        id:                          DB[6].id[iMaindDBIndex],
+                        member_id:             oUser.GetName(),
+                        car_id:                     oCar.GetBrand(),
+                        SHstatus_id:            oShstatus.GetName(),
+                        pickup_id:                oPickupPlace.GetName(),
+                        via:                          DB[6].via[iMaindDBIndex],
+                        destination:             DB[6].destination[iMaindDBIndex],
+                        sharing_datetime:   DB[6].sharing_datetime[iMaindDBIndex],
+                        seats:                      DB[6].seats[iMaindDBIndex],
+                        status:                     DB[6].status[iMaindDBIndex]    
                    }
                    this.sharings.splice(iAllSharingsLenght, 0, sharings);
             }
             return this.sharings;
+        }
+        
+        DBsharings.prototype.GetAvailableSharings = function () {
+            var SharingsIDS = DB[6].id;
+            var SharingsLength = SharingsIDS.length;
+            var AvailableSharings = [];
+            var AvailableSharingsLength = AvailableSharings.length;
+            for (var i in SharingsIDS){
+                var MainDBindex = SharingsIDS.indexOf(DB[6].id[i]);
+                if(DB[6].status[MainDBindex] == 1){
+                    var oUser = new DBmembers(DB[6].member_id[MainDBindex]);
+                    var oCar = new DBcars(DB[6].member_id[MainDBindex]);
+                    var oShstatus = new DBsharingStatuses(DB[6].SHstatus_id[MainDBindex]);
+                    var oPickupPlace = new DBpickup_places(DB[6].pickup_id[MainDBindex]); 
+                    AvailableSharing = {
+                        id: DB[6].id[MainDBindex],
+                        member_id:             oUser.GetName(),
+                        car_id:                     oCar.GetBrand(),
+                        SHstatus_id:            oShstatus.GetName(),
+                        pickup_id:                oPickupPlace.GetName(),
+                        via:                          DB[6].via[MainDBindex],
+                        destination:             DB[6].destination[MainDBindex],
+                        sharing_datetime:   DB[6].sharing_datetime[MainDBindex],
+                        seats:                      DB[6].seats[MainDBindex],
+                        status:                     DB[6].status[MainDBindex]   
+                    };
+                    AvailableSharings.splice(AvailableSharingsLength, 0, AvailableSharing);
+                }
+                
+            }
+            return AvailableSharings;
         }
         
 
@@ -188,7 +219,8 @@ function DBsharings(m_id, sh_id){
             var iSeats = Number(this.GetElement("TxtSeats").value);
             var iStatus = 1;
 //             id will be added automatically based on array length
-            var iDBidslength = DB[6].id.length;
+            var iDBids = DB[6].id;
+            var iDBidslength = iDBids.length;
             
             var Sharing = {
                             id:                            iDBidslength,

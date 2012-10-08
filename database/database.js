@@ -56,7 +56,7 @@ var DB;
 
 if(!localStorage.taffy_DB){
     
-    // Self Invokable funvtion to run on page load if there is no Database in Local Storage
+    // Self Invokable function to run on page load if there is no Database in Local Storage
     (function InsertTables(){
         
                 /* CREATE EMPTY DATABASE WITH NAME "DB" */
@@ -117,16 +117,14 @@ if(!localStorage.taffy_DB){
                 "name":["Confirmed" , "Not Confirmed"]    
             });
 
-//TODO CHANGE INDEX OF ARRAY FROM 6 TO 5
             var SharingStatusTable_Insert = 
                 this.DB.insert(
             {
                     "id":[0 , 1],
                     "name":["Fully Booked", "Free Seats"]
             });
-//TODO CHANGE INDEX OF ARRAY FROM 5 TO 6
-            
-            var SharingsTable_Insert = 
+                // INDEX [6]
+            var SharingsTable_Insert =
                 this.DB.insert(
             {
                     "id":[0, 1, 2, 3, 4],
@@ -146,7 +144,7 @@ if(!localStorage.taffy_DB){
                 this.DB.insert(
             {
                     "id":[0, 1],
-                    "member_id":[this.DB().get()[0].id[1], this.DB().get()[0].id[1]], 
+                    "book_member_id":[this.DB().get()[0].id[1], this.DB().get()[0].id[1]], 
                     "sharing_id":[this.DB().get()[6].id[2], this.DB().get()[6].id[3]], 
                     "made_date":["28/09/2012" , "28/09/2012"]
             });

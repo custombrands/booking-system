@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<!-- saved from url=(0042)http://localhost/booking-system/index.php# -->
+<html lang="en" class="cufon-active cufon-ready"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Car Share - Your Open Source for Car Sharing</title>
+        <meta charset="utf-8">
+        <!--<link rel="stylesheet" href="css/normalize.css" />-->
+        <link rel="stylesheet" href="http://localhost/booking-system/css/Style.css">
+        <link rel="stylesheet" href="http://localhost/booking-system/css/main.css">
+        <link rel="stylesheet" href="http://localhost/booking-system/css/bootstrap/bootstrap.css">
+        <script>
+            
+        </script>
+    <style type="text/css">cufon{text-indent:0!important;}@media screen,projection{cufon{display:inline!important;display:inline-block!important;position:relative!important;vertical-align:middle!important;font-size:1px!important;line-height:1px!important;}cufon cufontext{display:-moz-inline-box!important;display:inline-block!important;width:0!important;height:0!important;overflow:hidden!important;text-indent:-10000in!important;}cufon canvas{position:relative!important;}}@media print{cufon{padding:0!important;}cufon canvas{display:none!important;}}</style></head>
+        
+    <body id="body" class="modal-open"><div id="UserNavigationPanel" class="navbar navbar-static-top" style="display: block; ">
+    <div class="navbar-inner">
+        <div class="container">
+            <!-- Site name for the upper left corner of the site with user Specific Options-->
+            <ul class="nav">
+                <li class="dropdown">
+                    <a class="brand dropdown-toggle dropdown" data-toggle="dropdown" href="./Car Share - Your Open Source for Car Sharing_files/Car Share - Your Open Source for Car Sharing.htm">MyCarShare&nbsp;<i class="caret"></i></a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-header">Your Data</li>
+                        <li><a href="./Car Share - Your Open Source for Car Sharing_files/Car Share - Your Open Source for Car Sharing.htm"><i class="icon-tags"></i>&nbsp;CarBookings</a></li>
+                        <li><a href="./Car Share - Your Open Source for Car Sharing_files/Car Share - Your Open Source for Car Sharing.htm"><i class="icon-briefcase"></i>&nbsp;CarSharings</a></li>
+                        <li><a href="./Car Share - Your Open Source for Car Sharing_files/Car Share - Your Open Source for Car Sharing.htm"><i class="icon-calendar"></i>&nbsp;CarRequests</a></li>
+                    </ul>
+                </li>
+                <li class="divider-vertical"></li>
+            </ul>
+            
+            <!--Start of Navigation View Button --> 
+            <ul class="nav pull-left">
+                <li class="divider-vertical"></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="./Car Share - Your Open Source for Car Sharing_files/Car Share - Your Open Source for Car Sharing.htm">View <i class="caret"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="./Car Share - Your Open Source for Car Sharing_files/Car Share - Your Open Source for Car Sharing.htm"><i class="icon-map-marker"></i>&nbsp;Available&nbsp;Sharings</a></li>
+                        <li><a href="./Car Share - Your Open Source for Car Sharing_files/Car Share - Your Open Source for Car Sharing.htm"><i class="icon-thumbs-up"></i>&nbsp;Member&nbsp;Requests</a></li>
+                    </ul>
+                </li>            
+            </ul>
+            
+            <!-- Start of most right button group -->
+            <ul class="nav pull-right">
+                <li id="UserBtnGroup">
+                    <div class="btn-group">
+                        <!-- Start of drop down menu -->
+                        <!-- Logged in user Name on the button and button trigger for drop down -->
+                        <a id="LogedinUserName" class="btn btn-primary" data-toggle="dropdown" href="./Car Share - Your Open Source for Car Sharing_files/Car Share - Your Open Source for Car Sharing.htm"><i class="icon-user icon-white"></i>&nbsp;Eli</a>
+                        <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="./Car Share - Your Open Source for Car Sharing_files/Car Share - Your Open Source for Car Sharing.htm"><span class="caret"></span></a>                        
+                        <ul class="dropdown-menu">
+                            <!-- Modal Edit User Trigger -->
+                            <li><a id="BtnTriggerEdit" href="./Car Share - Your Open Source for Car Sharing_files/Car Share - Your Open Source for Car Sharing.htm" data-toggle="modal" data-target="#EditUserModal"><i class="icon-pencil"></i>&nbsp;&nbsp;&nbsp;Edit</a></li>
+                            <li><a href="./Car Share - Your Open Source for Car Sharing_files/Car Share - Your Open Source for Car Sharing.htm"><i class="icon-list"></i>&nbsp;&nbsp;&nbsp;Profile</a></li>
+                        </ul>
+                        <!-- Sign out button -->
+                        <button id="BtnSignout" class="btn btn-primary" type="button" style="margin-left: -3px;">Logout <i class="icon-share icon-white"></i></button>
+                    </div>
+                    <!--Start of Edit User Info Modal-->
+                    <!-- triggered on drop down meny "Edit" click -->
+                    <div id="EditUserModal" class="modal fade hide in" tabindex="-1" aria-labelledby="LblEditUser" aria-hidden="false" style="display: block; ">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h1 id="LblEditUser">Edit Your Info</h1>
+                        </div>
+                        <div class="modal-body">
+
+                            <!--Edit User Here-->
+                            <form id="EditUserForm" class="ModalForm form-horizontal " action="http://localhost/booking-system/index.php" method="post" accept-charset="UTF-8" onsubmit="return false;">
+                                <div class="conatainer">
+                                    <div class="control-group">
+                                        <div class="input-prepend">
+                                            <span class="add-on"><i class="icon-user"></i></span>
+                                            <input id="TxtUserName" class="input-large" placeholder="Your Name" type="text" name="TxtUserName" value="">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <div class="input-prepend">
+                                            <span class="add-on"><i class="icon-cog"></i></span>
+                                            <input id="TxtUserLastName" class="input-large" placeholder="Your Lastname" type="text" name="TxtUserLastName" value="">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <div class="input-prepend">
+                                            <span class="add-on"><i class="icon-cog"></i></span>
+                                            <input id="TxtUserEmail" class="input-large" placeholder="Your Email" type="text" name="TxtUserEmail" value="">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <div class="input-prepend">
+                                            <span class="add-on"><i class="icon-cog"></i></span>
+                                            <input id="TxtUserPhone" class="input-large" placeholder="Your Phone" type="text" name="TxtUserPhone" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                            <button id="BtnEditUser" class="btn btn-primary" type="button">Save</button>
+                        </div>
+                    </div>
+                    
+                        
+                </li>
+            </ul>
+            
+            
+            <!-- Start of User Actions Share, Request, Book -->
+            <ul id="UserActions" class="nav pull-right">
+                
+                <!--Start of Add Sharing Action User Modal-->
+                <li>
+                    <div class="btn-group">
+                        <a class="btn btn-primary" href="./Car Share - Your Open Source for Car Sharing_files/Car Share - Your Open Source for Car Sharing.htm" tabindex="-1" data-toggle="modal" data-remote="" data-target="#AddSharingModal">Share</a>
+                        <div id="AddSharingModal" class="modal fade hide" aria-labelledby="LblAddSharing" aria-hidden="true">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h1 id="LblAddSharing">Add Sharing</h1>
+                            </div>
+                            <div class="modal-body">
+                                <!--Add Sharing Form Here-->
+
+                            </div>
+                            <div class="modal-footer">
+                                    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                                    <button id="BtnAddSharing" class="btn btn-primary" type="button">Share</button>
+                            </div>
+
+                        </div>
+                
+                <!--Start of Add Request User Modal-->
+                    <a class="btn btn-primary" href="./Car Share - Your Open Source for Car Sharing_files/Car Share - Your Open Source for Car Sharing.htm" data-toggle="modal" data-remote="" data-target="#AddRequestModal">Request</a>
+                    
+                    <div id="AddRequestModal" class="modal fade hide" aria-labelledby="LblAddRequest" aria-hidden="true">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h1 id="LblAddRequest">Add Request</h1>
+                        </div>
+                        <div class="modal-body">
+                            
+                            <!--Add Request Form Here-->
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                            <button id="BtnAddRequest" class="btn btn-primary" type="button">Request</button>
+                        </div>
+                    </div>
+                
+                
+                <!--Start of Booking -->
+                
+                    <a class="btn btn-primary" href="./Car Share - Your Open Source for Car Sharing_files/Car Share - Your Open Source for Car Sharing.htm" data-toggle="modal" data-remote="" data-target="#AddBooking">Book</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div id="TopContainer">
+            <div class="CenterColumn">
+                <div id="Header" class="">
+                    <div id="Logo"><a href="http://localhost/booking-system/index.php"><img src="./Car Share - Your Open Source for Car Sharing_files/Car-Logo.png" alt=""></a></div><!-- end Logo div -->
+                        <div id="Navigation">
+                            <ul id="nav">
+                                <li><a href="http://localhost/booking-system/index.html"><cufon class="cufon cufon-canvas" alt="HOME" style="width: 54px; height: 20px; "><canvas width="74" height="23" style="width: 74px; height: 23px; top: -2px; left: -2px; "></canvas><cufontext>HOME</cufontext></cufon></a></li>
+                                <li><a href="http://localhost/booking-system/info.html"><cufon class="cufon cufon-canvas" alt="INFO" style="width: 43px; height: 20px; "><canvas width="58" height="23" style="width: 58px; height: 23px; top: -2px; left: -2px; "></canvas><cufontext>INFO</cufontext></cufon></a></li>
+                                <li><a href="http://localhost/booking-system/rides.html"><cufon class="cufon cufon-canvas" alt="RIDES" style="width: 51px; height: 20px; "><canvas width="73" height="23" style="width: 73px; height: 23px; top: -2px; left: -2px; "></canvas><cufontext>RIDES</cufontext></cufon></a></li>
+                                <li><a href="http://localhost/booking-system/sharing.html"><cufon class="cufon cufon-canvas" alt="SHARE" style="width: 54px; height: 20px; "><canvas width="75" height="23" style="width: 75px; height: 23px; top: -2px; left: -2px; "></canvas><cufontext>SHARE</cufontext></cufon></a></li>
+                            </ul>
+                        </div><!-- end Navigation -->
+                    
+                    <!--<div class="Clear"></div>-->
+                </div><!--end Header div-->
+                
+                <div id="VideoContainer">
+                    <div id="Video">
+                        <div id="Presentation">
+                            <img src="./Car Share - Your Open Source for Car Sharing_files/play.png" id="PlayVideo" alt="PLAY" style="opacity: 0.4; ">
+                        </div>
+                            
+                    </div>
+                </div><!-- end VideoContainer -->
+                
+                <div id="MainContent">
+                    <div id="SearchFields">
+                        <h1 class="Cufon">Your search criteria down here</h1>
+                        
+                        <div id="SearchSharing">
+                            <input type="text" placeholder="Search Your Sharer">
+                        </div>
+                        <div id="SearchRequst">
+                            <input type="text" placeholder="Search Your Requester">
+                        </div>
+                        <div class="Clear"></div>
+                        <hr>
+                    </div><!-- end SearchFields -->
+                    
+                    <div id="BoxContainer">
+                        <div class="Box BoxLeft" id="Sharings"> 
+                            <table class="table table-striped table-hover ">
+                                <caption><h2>Closet Available Sharings</h2></caption>
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>From</th>
+                                        <th>Via</th>
+                                        <th>To</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>04/10/2012</td>
+                                        <td>Næerum Station</td>
+                                        <td>Gentofte</td>
+                                        <td>Noreport</td>
+                                        <td>More Info</td>
+                                    </tr>
+                                    <tr>
+                                        <td>04/10/2012</td>
+                                        <td>Næerum Station</td>
+                                        <td>Gentofte</td>
+                                        <td>Noreport</td>
+                                        <td>More Info</td>
+                                    </tr>
+                                    <tr>
+                                        <td>04/10/2012</td>
+                                        <td>Næerum Station</td>
+                                        <td>Gentofte</td>
+                                        <td>Noreport</td>
+                                        <td>More Info</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> <!--end LeftTable-->
+                        <div class="Box BoxRigth" id="Requests">
+                            <table class="table table-striped table-hover">
+                                <caption><h2>Closest Requests</h2></caption>
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>From</th>
+                                        <th>Via</th>
+                                        <th>To</th>
+                                        <th>Info</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>04/10/2012</td>
+                                        <td>Næerum Station</td>
+                                        <td>Gentofte</td>
+                                        <td>Noreport</td>
+                                        <td>More Info</td>
+                                    </tr>
+                                    <tr>
+                                        <td>04/10/2012</td>
+                                        <td>Næerum Station</td>
+                                        <td>Gentofte</td>
+                                        <td>Noreport</td>
+                                        <td>More Info</td>
+                                    </tr>
+                                    <tr>
+                                        <td>04/10/2012</td>
+                                        <td>Næerum Station</td>
+                                        <td>Gentofte</td>
+                                        <td>Noreport</td>
+                                        <td>More Info</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div><!--end rigth Table-->
+                    </div><!-- end BoxContainer -->
+                    
+                    <div class="Clear"></div>
+                </div><!--end MainContent-->
+                
+            </div><!--end CenterColumn-->
+        </div><!--end top container-->
+        <div id="BottomContainer">
+            <div class="CenterColumn">
+                <div id="BottomBoxContainer"></div> <!-- BottomBoxContainer-->
+                <div id="FooterContainer">
+                    <div id="Footer">Copyright © 2012 Dimul. <a href="./Car Share - Your Open Source for Car Sharing_files/Car Share - Your Open Source for Car Sharing.htm">All rights reserved</a>   |   Privacy Policy</div><!-- end foot -->
+                </div><!-- end footer_container -->
+            </div><!-- end CenterColumn -->
+        </div><!--end bottom container-->
+        
+        
+            
+        <!--<script type="text/javascript" src="js/main.js"></script>-->
+        <script type="text/javascript" src="./Car Share - Your Open Source for Car Sharing_files/taffy.js"></script>
+        <script type="text/javascript" src="./Car Share - Your Open Source for Car Sharing_files/jquery-1.8.1.js"></script>
+        <script type="text/javascript" src="./Car Share - Your Open Source for Car Sharing_files/cufon-yui.js"></script>
+        <script type="text/javascript" src="./Car Share - Your Open Source for Car Sharing_files/swfobject.js"></script>
+        <script type="text/javascript" src="./Car Share - Your Open Source for Car Sharing_files/bootstrap.js"></script>
+        <script type="text/javascript" src="./Car Share - Your Open Source for Car Sharing_files/Bauh_400.font.js"></script>
+        <script type="text/javascript" src="./Car Share - Your Open Source for Car Sharing_files/database.js"></script>           
+        <script type="text/javascript" src="./Car Share - Your Open Source for Car Sharing_files/DBsharingStatuses.js"></script>           
+        <script type="text/javascript" src="./Car Share - Your Open Source for Car Sharing_files/DBpickup_places.js"></script>           
+        <script type="text/javascript" src="./Car Share - Your Open Source for Car Sharing_files/DBm_types.js"></script>           
+        <script type="text/javascript" src="./Car Share - Your Open Source for Car Sharing_files/DBsharings.js"></script>           
+        <script type="text/javascript" src="./Car Share - Your Open Source for Car Sharing_files/DBmembers.js"></script>           
+        <script type="text/javascript" src="./Car Share - Your Open Source for Car Sharing_files/DBbookings.js"></script>           
+        <script type="text/javascript" src="./Car Share - Your Open Source for Car Sharing_files/DBcars.js"></script>           
+        <script type="text/javascript" src="./Car Share - Your Open Source for Car Sharing_files/main.js"></script>
+        <script type="text/javascript" src="./Car Share - Your Open Source for Car Sharing_files/ui-effects.js"></script>
+        <script type="text/javascript">
+            Cufon.replace('#SignUpModal h1')('#Navigation ul li', {hover: true, fontFamily: "Bauh"});
+                
+
+        </script>
+            
+    
+        
+
+<div class="modal-backdrop fade in"></div><div class="vimiumReset vimiumHUD" style="right: 150px; opacity: 0; display: none; "></div></body></html>

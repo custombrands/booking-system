@@ -40,3 +40,117 @@
 #Presentation object {
     border: 0;
 }
+
+.DropdownMenu .dropdown-menu {
+    padding: 15px; 
+    padding-bottom: 0px
+}
+
+.ModalForm {
+    width: 260px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.ModalForm input[type=text], .ModalForm input[type=password], .ModalForm #TxtPickUpSelector  {
+    line-height: 30px !important ;
+    height: 30px !important ;
+    padding-left: 10px !important ;
+} 
+
+.ModalForm .input-prepend .add-on {
+    height: 30px;
+    line-height: 30px;
+}
+#SignUpModalLabel {
+    margin-left: 115px;
+}
+#SignUpModal {
+    width: 500px;
+}
+#SignUpModal .modal-header {
+    background-color: #666;
+    border-bottom: 1px solid #666;
+}
+#SignUpModal h1 {
+    color: white;
+}
+#SignUpModal .btn-group {
+    margin-right: 109px;
+}
+#SignUpModal .btn-group button{
+    width: 130px; 
+}
+#SignUpModal #TxtError {
+    margin-left: 105px;
+    padding-left: 50px;
+}
+.alert {
+    margin-bottom: 5px !important;
+}
+.alert p {
+ font-size: 12px;
+ margin-bottom: 0px;
+ padding-bottom: 0px;
+}
+#LoginError {
+    width:140px;
+}
+#UserActions {
+    margin-right: 30px;
+}
+#AdminNavigationPanel .LblAdmin {
+    font-size: 10px;
+}
+#AdminSearchUser {
+    margin-left: 20px;
+}
+
+#AvailableSharingsModal,
+#UserSharingsModal,
+#UserBookingsModal
+{
+    width: 810px;
+    position: absolute;
+    margin-top: 0;
+    margin-left: auto;
+}
+
+#AvailableSharingsModal .modal-body,
+#UserSharingsModal .modal-body,
+#UserBookingsModal .modal-body
+{
+    max-height: 800px;
+}
+
+#TxtUserSharingsTable .btn {
+    width: 80px;
+}
+
+#TxtUserSharingsTable th.via {
+    width: 120px;
+}
+#TxtUserSharingsTable .via input[type=text],
+#TxtUserSharingsTable .destination input[type=text],
+#TxtUserSharingsTable .sharingdate input[type=text]
+{
+    width: 90px;
+    height: 25px;
+    padding: 0;
+    margin: 0;
+}
+#TxtUserSharingsTable .destination {
+    width: 120px;
+}
+
+#TxtUserSharingsTable thead .sharingdate {
+    width: 140px;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 8px;
+}
+#TxtUserSharingsTable tbody .sharingdate {
+    width: 140px;
+}
+
+    
+
