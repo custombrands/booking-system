@@ -23,7 +23,7 @@ function DBsharings(m_id, sh_id){
         DBsharings.prototype.DatabaseContructor = function (m_id, sh_id){
            
            var SharingIds = DB[6].id;
-           var MainDBidIndex
+           var MainDBidIndex;
            var iSharingsIdsLength = SharingIds.length;
            if(typeof sh_id == "number"){
                for(i=0; i<iSharingsIdsLength; i++){
@@ -62,31 +62,26 @@ function DBsharings(m_id, sh_id){
            this.sharings = [];
            var iSharingsLength = this.sharings.length;
            
-           if (typeof m_id == "number"){
-               var MemberIds = DB[6].member_id;
-               var MemberiIdsLength = MemberIds.length;
-               var oUser = new DBmembers(m_id);
-               var oCar = new DBcars(m_id);
-                   for (i = 0; i < MemberiIdsLength; i++ ){
-                       if(m_id == MemberIds[i]){
-                           var oShstatus = new DBsharingStatuses(DB[6].SHstatus_id[i]);
-                           var sShstatus = JSON.stringify(oShstatus);
-                           var oPickupPlace = new DBpickup_places(DB[6].pickup_id[i]);
-                           var sharings = {
-                            id:                          DB[6].id[i],
-                            member_id:             oUser.GetName(),
-                            car_id:                     oCar.GetBrand(),
-                            SHstatus_id:            oShstatus.GetName(),
-                            pickup_id:                oPickupPlace.GetName(),
-                            via:                          DB[6].via[i],
-                            destination:             DB[6].destination[i],
-                            sharing_datetime:   DB[6].sharing_datetime[i],
-                            seats:                      DB[6].seats[i],
-                            status:                     DB[6].status[i]    
-                           }
-                           this.sharings.splice(iSharingsLength, 0, sharings);
-                       } 
-                   }
+            if (typeof m_id == "number"){
+                var MemberIds = DB[6].member_id;
+                var MemberiIdsLength = MemberIds.length;
+                    for (i = 0; i < MemberiIdsLength; i++ ){
+                        if(m_id == MemberIds[i]){
+                        var sharings = {
+                        id:                          DB[6].id[i],
+                        member_id:             DB[6].member_id[i],
+                        car_id:                     DB[6].car_id[i],
+                        SHstatus_id:            DB[6].SHstatus_id[i],
+                        pickup_id:                DB[6].pickup_id[i],
+                        via:                          DB[6].via[i],
+                        destination:             DB[6].destination[i],
+                        sharing_datetime:   DB[6].sharing_datetime[i],
+                        seats:                      DB[6].seats[i],
+                        status:                     DB[6].status[i]    
+                        }
+                        this.sharings.splice(iSharingsLength, 0, sharings);
+                        } 
+                    }
             } else if (localStorage.User_Sharings){
                 var aUserSharings = JSON.parse(localStorage.User_Sharings);
                 for (var i in aUserSharings){
@@ -147,50 +142,45 @@ function DBsharings(m_id, sh_id){
         DBsharings.prototype.GetStatus = function () {
             return this.status;
         }
-        DBsharings.prototype.GetAllSharings = function () {
-            var SharingIds = DB[6].id;
-            var iAllSharingsLenght = this.sharings.length;
-            for(i in SharingIds){
-                var iMaindDBIndex = DB[6].id.indexOf(SharingIds[i]);
-                    var oUser = new DBmembers(DB[6].member_id[iMaindDBIndex]);
-                    var oCar = new DBcars(DB[6].member_id[iMaindDBIndex]);
-                    var oShstatus = new DBsharingStatuses(DB[6].SHstatus_id[iMaindDBIndex]);
-                    var oPickupPlace = new DBpickup_places(DB[6].pickup_id[iMaindDBIndex]);
-                    var sharings = {
-                        id:                          DB[6].id[iMaindDBIndex],
-                        member_id:             oUser.GetName(),
-                        car_id:                     oCar.GetBrand(),
-                        SHstatus_id:            oShstatus.GetName(),
-                        pickup_id:                oPickupPlace.GetName(),
-                        via:                          DB[6].via[iMaindDBIndex],
-                        destination:             DB[6].destination[iMaindDBIndex],
-                        sharing_datetime:   DB[6].sharing_datetime[iMaindDBIndex],
-                        seats:                      DB[6].seats[iMaindDBIndex],
-                        status:                     DB[6].status[iMaindDBIndex]    
-                   }
-                   this.sharings.splice(iAllSharingsLenght, 0, sharings);
-            }
+        DBsharings.prototype.GetSharings = function () {
             return this.sharings;
         }
         
+//        DBsharings.prototype.GetAllSharings = function () {
+//            var SharingIds = DB[6].id;
+//            var iAllSharingsLenght = this.sharings.length;
+//            for(i in SharingIds){
+//                var iMaindDBIndex = DB[6].id.indexOf(SharingIds[i]);
+//                    var sharings = {
+//                        id:                          DB[6].id[iMaindDBIndex],
+//                        member_id:             DB[6].member_id[iMaindDBIndex],
+//                        car_id:                     DB[6].car_id[iMaindDBIndex],
+//                        SHstatus_id:            DB[6].SHstatus_id[iMaindDBIndex],
+//                        pickup_id:                DB[6].pickup_id[iMaindDBIndex],
+//                        via:                          DB[6].via[iMaindDBIndex],
+//                        destination:             DB[6].destination[iMaindDBIndex],
+//                        sharing_datetime:   DB[6].sharing_datetime[iMaindDBIndex],
+//                        seats:                      DB[6].seats[iMaindDBIndex],
+//                        status:                     DB[6].status[iMaindDBIndex]    
+//                   }
+//                   this.sharings.splice(iAllSharingsLenght, 0, sharings);
+//            }
+//            return this.sharings;
+//        }
+        
         DBsharings.prototype.GetAvailableSharings = function () {
             var SharingsIDS = DB[6].id;
-            var SharingsLength = SharingsIDS.length;
             var AvailableSharings = [];
             var AvailableSharingsLength = AvailableSharings.length;
             for (var i in SharingsIDS){
                 var MainDBindex = SharingsIDS.indexOf(DB[6].id[i]);
-                if(DB[6].status[MainDBindex] == 1){
-                    var oUser = new DBmembers(DB[6].member_id[MainDBindex]);
-                    var oCar = new DBcars(DB[6].member_id[MainDBindex]);
-                    var oShstatus = new DBsharingStatuses(DB[6].SHstatus_id[MainDBindex]);
-                    var oPickupPlace = new DBpickup_places(DB[6].pickup_id[MainDBindex]); 
+                if(DB[6].status[MainDBindex] == 1){ 
                     AvailableSharing = {
                         id: DB[6].id[MainDBindex],
-                        member_id:             oUser.GetName(),
-                        car_id:                     oCar.GetBrand(),
-                        SHstatus_id:            oShstatus.GetName(),
-                        pickup_id:                oPickupPlace.GetName(),
+                        member_id:             DB[6].member_id[MainDBindex],
+                        car_id:                     DB[6].car_id[MainDBindex],
+                        SHstatus_id:            DB[6].SHstatus_id[MainDBindex],
+                        pickup_id:                DB[6].pickup_id[MainDBindex],
                         via:                          DB[6].via[MainDBindex],
                         destination:             DB[6].destination[MainDBindex],
                         sharing_datetime:   DB[6].sharing_datetime[MainDBindex],
@@ -246,7 +236,7 @@ function DBsharings(m_id, sh_id){
                 DB[6].seats.splice(iDBidslength, 0, iSeats);
                 DB[6].status.splice(iDBidslength, 0, iStatus);
                 
-                var aUserSharings = JSON.parse(localStorage.User_Sharings);
+               var aUserSharings = JSON.parse(localStorage.User_Sharings);
                aUserSharings.push(Sharing);
                localStorage.setItem("User_Sharings", JSON.stringify(aUserSharings));
                localStorage.setItem("taffy_DB", JSON.stringify(DB));
@@ -309,43 +299,6 @@ function DBsharings(m_id, sh_id){
                var get = document.getElementById(sId);
                return get
         }
-
-
-
-
+        
         this.DatabaseContructor(m_id, sh_id);
-
 }
-
-
-
-
-//                           // SELECTS SPECEFIC ROW BASED ON m_type_id
-//                           // Returns an array selected based on m_type_id
-//                            var query = [ DB[6].id[i], DB[6].member_id[i], DB[6].car_id[i], DB[6].SHstatus_id[i], DB[6].pickup_id[i], DB[6].via[i], DB[6].destination[i], DB[6].sharing_datetime[i], DB[6].seats[i]];  //select("id", "name")
-//                               console.log(query);
-//                           // FETCH DB FIELD VALUES INTO GLOBAL VARIABLES
-//                           this.id = query[0]; // this is position of ID column (interger)
-//                           this.member_id = query[1]; //this is position of NAME column (string)
-//                           this.car_id = new DBcars(query[2]); //this is position of NAME column (string)
-//                           this.SHstatus_id = new DBsharingStatuses(query[3]); //this is position of NAME column (string)
-//                           this.pickup_id = new DBpickup_places(query[4]); //this is position of NAME column (string)
-//                           this.via = query[5]; //this is position of NAME column (string)
-//                           this.destination = query[6]; //this is position of NAME column (string)
-//                           this.sharing_datetime = query[7]; //this is position of NAME column (string)
-//                           this.seats = query[8]; //this is position of NAME column (string)
-//                           console.log(this.member_id);
-
-
-//           for (i in this.sharings){
-//               var query = [ this.sharings[i].id , 
-//                                     this.sharings[i].member_id , 
-//                                     this.sharings[i].car_id , 
-//                                     this.sharings[i].SHstatus_id , 
-//                                     this.sharings[i].pickup_id , 
-//                                     this.sharings[i].pickup_id,
-//                                     this.sharings[i].via,
-//                                     this.sharings[i].destination,
-//                                     this.sharings[i].sharing_datetime,
-//                                     this.sharings[i].seats];
-//                           console.log(query);}

@@ -6,7 +6,10 @@
             <name>booking-system</name>
         </data>
         <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
+            <word>Admin</word>
+            <word>AllUsersModal</word>
             <word>AvailableSharings</word>
+            <word>AvailableSharingsModal</word>
             <word>BoxContainer</word>
             <word>CarBookings</word>
             <word>CarRequests</word>
@@ -15,6 +18,9 @@
             <word>Dropdown</word>
             <word>LeftTable</word>
             <word>MainContent</word>
+            <word>MODALS</word>
+            <word>MyCarShare</word>
+            <word>PastSharingsModal</word>
             <word>SearchFields</word>
             <word>Sharings</word>
             <word>VideoContainer</word>

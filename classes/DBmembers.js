@@ -56,54 +56,54 @@ function DBmembers(iId){
                            this.m_type = new DBm_types(aUser[5]); //this is posiiton of m_type_id in query and creates new object Member Types;
             }
             return true;
-        }        
+        };        
         /*     SETTERS     */
         
         DBmembers.prototype.SetId = function (iId){
             this.id = iId;
-        }
+        };
         DBmembers.prototype.SetName = function(sName){
             this.name = sName;
-        }
+        };
         DBmembers.prototype.SetLastName = function(sLastName){
             this.lastname = sLastName;
-        }
+        };
         DBmembers.prototype.SetEmail = function(sEmail){
             this.email = sEmail;
-        }
+        };
         DBmembers.prototype.SetPhone= function(sPhone){
             this.phone = sPhone;
-        }      
+        };      
         DBmembers.prototype.SetPassword= function(sPassword){
             this.password = sPassword;
-        }
+        };
         DBmembers.prototype.SetM_type= function(m_type_id){
             this.m_type = new DBm_types(m_type_id);
-        }
+        };
         
         /*     GETTERS     */
-     /**   @GetId This is for gettings ID */
+        
         DBmembers.prototype.GetId = function (){
             return this.id;
-        }        
+        };        
         DBmembers.prototype.GetName = function () {
             return this.name;
-        }
+        };
         DBmembers.prototype.GetLastName = function () {
             return this.lastname;
-        }
+        };
         DBmembers.prototype.GetEmail = function () {
             return this.email;
-        }
+        };
         DBmembers.prototype.GetPhone = function () {
             return this.phone;
-        }
+        };
         DBmembers.prototype.GetPassword = function () {
             return this.password;
-        }      
+        };
         DBmembers.prototype.GetM_type = function () {
             return this.m_type;
-        }
+        };
 //        DBmembers.prototype.GetSharings = function(){
 //            return this.sharings;
 //        }
@@ -139,50 +139,65 @@ function DBmembers(iId){
             console.log(DB[0].name);
             console.log(DB[0].email);
             return true;
-        }
-        
-        DBmembers.prototype.EditUser = function (sBtnId) {
-            var aUser = JSON.parse(localStorage.User);
-            var sName = this.GetElement("TxtUserName");
-            var sLastname = this.GetElement("TxtUserLastName");
-            var sEmail = this.GetElement("TxtUserEmail");
-            var sPhone =  this.GetElement("TxtUserPhone");
-                aUser[1] = sName.value;
-                aUser[2] = sLastname.value;
-                aUser[3] = sEmail.value;
-                aUser[4] = sPhone.value;
-                localStorage.User = JSON.stringify(aUser);
-                console.log(aUser);
-                console.log(localStorage.getItem("User"));
-                console.log("---------------------------------------------------------");
-                console.log("Updated Me to main DB");
-                var MainDBids = DB[0].id;
-                var updateID = DB[0].id[aUser[0]];
-                var IndexOfupdateID = MainDBids.indexOf(updateID);
-                DB[0].name.splice(IndexOfupdateID, 1, aUser[1]);
-                DB[0].lastname.splice(IndexOfupdateID, 1, aUser[2]);
-                DB[0].email.splice(IndexOfupdateID, 1, aUser[3]);
-                DB[0].phone.splice(IndexOfupdateID, 1, aUser[4]);
-                localStorage.taffy_DB = JSON.stringify(DB);
-                console.log(DB[0].name[updateID] +", " + DB[0].lastname[updateID] + " " +  DB[0].email[updateID]+" "+ DB[0].phone[updateID]);
-        }
-        
+        };
+        DBmembers.prototype.EditUser = function (sUserType, oInfoToEdit) {
+            if(sUserType == "Admin"){
+                var MemberIds = DB[0].id;
+                for (var i in MemberIds){
+                    if(oInfoToEdit.id == MemberIds[i]){
+                        var MainDBIndex = MemberIds.indexOf(oInfoToEdit.id);
+                        DB[0].name[MainDBIndex] = oInfoToEdit.name;
+                        DB[0].lastname[MainDBIndex] = oInfoToEdit.lastname;
+                        DB[0].email[MainDBIndex] = oInfoToEdit.email;
+                        DB[0].phone[MainDBIndex] = oInfoToEdit.phone;
+                        localStorage.taffy_DB = JSON.stringify(DB);
+                    }
+                }
+                
+                
+            }
+            if(sUserType == ""){
+                var aUser = JSON.parse(localStorage.User);
+                var sName = this.GetElement("TxtUserName");
+                var sLastname = this.GetElement("TxtUserLastName");
+                var sEmail = this.GetElement("TxtUserEmail");
+                var sPhone =  this.GetElement("TxtUserPhone");
+                    aUser[1] = sName.value;
+                    aUser[2] = sLastname.value;
+                    aUser[3] = sEmail.value;
+                    aUser[4] = sPhone.value;
+                    localStorage.User = JSON.stringify(aUser);
+                    console.log(aUser);
+                    console.log(localStorage.getItem("User"));
+                    console.log("---------------------------------------------------------");
+                    console.log("Updated Me to main DB");
+                    var MainDBids = DB[0].id;
+                    var updateID = DB[0].id[aUser[0]];
+                    var IndexOfupdateID = MainDBids.indexOf(updateID);
+                    DB[0].name.splice(IndexOfupdateID, 1, aUser[1]);
+                    DB[0].lastname.splice(IndexOfupdateID, 1, aUser[2]);
+                    DB[0].email.splice(IndexOfupdateID, 1, aUser[3]);
+                    DB[0].phone.splice(IndexOfupdateID, 1, aUser[4]);
+                    localStorage.taffy_DB = JSON.stringify(DB);
+                    console.log(DB[0].name[updateID] +", " + DB[0].lastname[updateID] + " " +  DB[0].email[updateID]+" "+ DB[0].phone[updateID]);
+            }
+        };
         DBmembers.prototype.Login = function (email, password){
              // Compare that the email and password are registered 
             // Foreach, never goes outside the length of the array
-               for(var i in DB[0].email &&  DB[0].password){
-                    var MemberEmail = DB[0].email[i];
-                    var MemberPassword = DB[0].password[i];
-                    
-                    // Find a match in Members Table
-                    if(MemberEmail == email && MemberPassword == password ){ 
-                        var aUser = [DB[0].id[i], DB[0].name[i], DB[0].lastname[i], DB[0].email[i], DB[0].phone[i], DB[0].m_type_id[i]];
-                        localStorage.setItem("User", JSON.stringify(aUser));
-                        return true;
-                    } 
-                }
-                return false;
-        }
+           for(var i in DB[0].email &&  DB[0].password){
+                var MemberEmail = DB[0].email[i];
+                var MemberPassword = DB[0].password[i];
+
+                // Find a match in Members Table
+                if(MemberEmail == email && MemberPassword == password ){ 
+                    var aUser = [DB[0].id[i], DB[0].name[i], DB[0].lastname[i], DB[0].email[i], DB[0].phone[i], DB[0].m_type_id[i]];
+                    localStorage.setItem("User", JSON.stringify(aUser));
+                    return true;
+                } 
+            }
+            return false;
+        };
         DBmembers.prototype.Logout = function () {
             localStorage.removeItem("User");
             localStorage.removeItem("User_Sharings");
@@ -191,7 +206,7 @@ function DBmembers(iId){
             console.log("User Is Loged out");
             console.log(localStorage);
             return true;
-        }
+        };
         
         /* VALIDATION */
         
@@ -199,76 +214,111 @@ function DBmembers(iId){
                 //ValidateInfo('TxtLoginEmail', 6, 50);
 //                var oEmailInput = this.GetElement(oEmailInputId);
 //                var oPasswordInput = this.GetElement(oPasswordInputId);
-                if (this.ValidateFields()){
-                var bValidEmail = this.IsEmailValid(email_val);
-                var bValidPassword = this.IsPasswordValid(password_val, 6, 20);
-                if(bValidEmail == true && bValidPassword == true){
-                    return true;
-                }
-                }
+            if (this.ValidateFields()){
+            var bValidEmail = this.IsEmailValid(email_val);
+            var bValidPassword = this.IsPasswordValid(password_val, 6, 20);
+            if(bValidEmail == true && bValidPassword == true){
+                return true;
+            }
+            }
+            return false;
+        };
+        DBmembers.prototype.IsEmailValid = function(email){
+
+            var regularExpresion = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+            if(regularExpresion.test(email) == true){
+                return true;
+            }  
+            else{
                 return false;
             }
-            
-         DBmembers.prototype.IsEmailValid = function(email){
 
-                var regularExpresion = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        };
+        DBmembers.prototype.IsPasswordValid = function (password, minCharacters, maxCharacters){
+            console.log(password);
+            console.log(this.GetElement("TxtRepeatPassword").value);
 
-                if(regularExpresion.test(email) == true){
-                    return true;
-                }  
-                else{
-                    return false;
-                }
+            if(this.GetElement("TxtPassword").value !== ""){
 
-            }
-            DBmembers.prototype.IsPasswordValid = function (password, minCharacters, maxCharacters){
-                
-//                var oInput = this.GetElement(inputId);
-//                var info = oInput.value;
-                console.log(password);
-                console.log(this.GetElement("TxtRepeatPassword").value);
-                
-                if(this.GetElement("TxtPassword").value !== ""){
-                    
-                        if(password.length >= minCharacters && password.length <= maxCharacters){
-                             console.log("this password will work");
+                    if(password.length >= minCharacters && password.length <= maxCharacters){
+                         console.log("this password will work");
 
-                             if ((this.GetElement("TxtRepeatPassword").value != password)){
-                                console.log(" but Passwords don't match");
-                                return false;
-                            } else {
-                                console.log("and they match");
-                                return true;
-                            }
+                         if ((this.GetElement("TxtRepeatPassword").value != password)){
+                            console.log(" but Passwords don't match");
+                            return false;
                         } else {
-                            console.log("password is too short");
-                            return false
+                            console.log("and they match");
+                            return true;
                         }
-                        
-               } else {
-                   console.log("Please Repeat Passwords");
-                   return false
-               }
-                console.log("done");
-                
-            }
-            
-            DBmembers.prototype.ValidateFields = function (){
-                    var sName = this.GetElement("TxtUserName").value;
-                    var sLastname = this.GetElement("TxtUserLastName").value;
-                    var sEmail = this.GetElement("TxtUserEmail").value;
-                    var sPhone =  this.GetElement("TxtUserPhone").value;
-                    var sPassword = this.GetElement("TxtPassword").value;
-                    var sPasswordRepeat = this.GetElement("TxtRepeatPassword").value;
-                    
-                    if ( typeof sName == "" || sLastname == "" || sEmail == "" || sPhone == "" || sPassword == "" || sPasswordRepeat == "") {
-                        console.log("Please fill in all required fields");
-                        return false
                     } else {
-                        console.log("all fields filled");
-                        return true;
+                        console.log("password is too short");
+                        return false
                     }
-             }            
+
+           } else {
+               console.log("Please Repeat Passwords");
+               return false
+           }
+            console.log("done");
+
+        };
+        DBmembers.prototype.ValidateFields = function (){
+            var sName = this.GetElement("TxtUserName").value;
+            var sLastname = this.GetElement("TxtUserLastName").value;
+            var sEmail = this.GetElement("TxtUserEmail").value;
+            var sPhone =  this.GetElement("TxtUserPhone").value;
+            var sPassword = this.GetElement("TxtPassword").value;
+            var sPasswordRepeat = this.GetElement("TxtRepeatPassword").value;
+
+            if ( typeof sName == "" || sLastname == "" || sEmail == "" || sPhone == "" || sPassword == "" || sPasswordRepeat == "") {
+                console.log("Please fill in all required fields");
+                return false
+            } else {
+                console.log("all fields filled");
+                return true;
+            }
+        };
+        
+        DBmembers.prototype.GetAllUsers = function () {
+            var MainDBallUsers = DB[0].id;
+            var allUsers = [];
+            var allUsersLength = allUsers.length;
+            for (var i in MainDBallUsers){
+                var user = {
+                    id: DB[0].id[i],
+                    name: DB[0].name[i],
+                    lastname: DB[0].lastname[i],
+                    email: DB[0].email[i],
+                    phone: DB[0].phone[i],
+                    password: DB[0].password[i],
+                    m_type_id: DB[0].m_type_id[i]
+                }
+                allUsers.splice(allUsersLength, 0, user);
+            }
+            return allUsers;
+        };
+        
+        DBmembers.prototype.FindUserInfo = function (UserEmail) {
+            var MainDBallEmails = DB[0].email;
+            for(var i in MainDBallEmails){
+                if(UserEmail == MainDBallEmails[i]){
+                    var MainDBemailIndex = MainDBallEmails.indexOf(UserEmail);
+                    var FoundUser = {
+                        id: DB[0].id[MainDBemailIndex],
+                        name: DB[0].name[MainDBemailIndex],
+                        lastname: DB[0].lastname[MainDBemailIndex],
+                        email: DB[0].email[MainDBemailIndex],
+                        phone: DB[0].phone[MainDBemailIndex],
+                        password: DB[0].password[MainDBemailIndex],
+                        m_type_id: DB[0].m_type_id[MainDBemailIndex]
+                    }
+                    return FoundUser;
+                }
+            }
+            return false;
+        }
+        
  
         
         /* RECURSIVE ACTIONS */
@@ -276,7 +326,7 @@ function DBmembers(iId){
         DBmembers.prototype.GetElement = function (sId){
                var get = document.getElementById(sId);
                return get
-        }
+        };
         
         
     

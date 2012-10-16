@@ -1,40 +1,54 @@
-function DBbookings (m_id){
+function DBbookings (m_id, book_id){
     
         var id;
         var book_member_id;
         var sharing_id;
         var made_date;
+        var status;
         
         var bookings;
     
     
-    DBbookings.prototype.DatabaseContructor = function (m_id){
+    DBbookings.prototype.DatabaseContructor = function (m_id, book_id){
             
-            this.bookings = [];
-            var iBookingsLength = this.bookings.length;
-            var MemberIds = DB[7].book_member_id;
-            var MemberiIdsLength = MemberIds.length;
-            if (typeof m_id == "number"){
+            
+            var BookingIds = DB[7].id;
+            var MainDBindex;
+            var iBookingIdsLength = BookingIds.length;
+            if(typeof book_id == "number"){
+                for(i in BookingIds){
+                    if (book_id == BookingIds[i]){
+                        MainDBindex = BookingIds.indexOf(BookingIds[i])
+                        this.id = BookingIds[MainDBindex];
+                        this.book_member_id = new DBmembers(DB[7].book_member_id[MainDBindex]);
+                        this.sharing_id = new DBsharings("", DB[7].sharing_id[MainDBindex]);
+                        this.made_date = DB[7].made_date[MainDBindex];
+                    }
+                }
+            } else if(localStorage.User){
+                MainDBindex = BookingIds.indexOf(BookingIds[i])
+                this.id = BookingIds[MainDBindex];
+                this.book_member_id = new DBmembers(DB[7].book_member_id[MainDBindex]);
+                this.sharing_id = new DBsharings("", DB[7].sharing_id[MainDBindex]);
+                this.made_date = DB[7].made_date[MainDBindex];
+            }
+            
+        this.bookings = [];
+        var iBookingsLength = this.bookings.length;
+        if (typeof m_id == "number"){
+                var MemberIds = DB[7].book_member_id;
+                var MemberiIdsLength = MemberIds.length;
                    for (i = 0; i < MemberiIdsLength; i++ ){
                        if(m_id == MemberIds[i]){
-//                            var MainDBindex = MemberIds.indexOf(m_id);
-                            var oUser = new DBmembers(DB[7].book_member_id[i]);
-                            var oSharing = new DBsharings("", DB[7].sharing_id[i]);
                             var booking = {
-                                id:                          DB[7].id[i],
-                                book_member_id:   oUser.GetName(),
-                                sharing_member_id: oSharing.GetMember().GetName(),
-                                sharing_member_car: oSharing.GetCar().GetBrand(),
-                                car_number_plate: oSharing.GetCar().GetReg_Number(),
-                                sharing_id:             oSharing.GetId(),
-                                made_date:            DB[7].made_date[i],
-                                booking_date:        oSharing.GetDateTime()
+                                id:                 DB[7].id[i],
+                                book_member_id:     DB[7].book_member_id[i],
+                                sharing_id:         DB[7].sharing_id[i],
+                                made_date:          DB[7].made_date[i]
                             }
                             this.bookings.splice(iBookingsLength, 0, booking);
-////                           console.log("Loedin user has id: " + DB[7].id[i]);
                        } 
                    }
-                   console.log(this.bookings);
             } else if (localStorage.User_Bookings){
                 var aUserBookings = JSON.parse(localStorage.User_Bookings);
                 var iBookingslength = aUserBookings.length;
@@ -50,9 +64,6 @@ function DBbookings (m_id){
         DBbookings.prototype.SetBookingMember_id = function(member_id){
             this.book_member_id = member_id;
         }
-        DBbookings.prototype.SetSharingMember_id = function(member_id){
-            this.sharing_member_id = member_id;
-        }
         DBbookings.prototype.SetSharing_id = function(sharing_id){
             this.sharing_id = sharing_id;
         }
@@ -60,29 +71,25 @@ function DBbookings (m_id){
             this.sharing_datetime = made_date;
         }
  
-        DBbookings.prototype.SetStatus = function(iStatus){
-            this.made_date = iStatus;
-        }
         
         /*     GETTERS     */
         
-        DBbookings.prototype.GetBookingMember_id = function(member_id){
+        DBbookings.prototype.GetId = function(){
+            return this.id;
+        }
+        DBbookings.prototype.GetBookMember = function(){
             return this.book_member_id;
         }
-        DBbookings.prototype.GetSharingMember_id = function(member_id){
-            return this.sharing_member_id;
-        }
-        DBbookings.prototype.GetSharing_id = function(){
+        DBbookings.prototype.GetSharing = function(){
             return this.sharing_id;
         }
-        DBbookings.prototype.GetMade_date = function(){
-            return this.sharing_datetime;
-        }
- 
-        DBbookings.prototype.GetStatus = function(){
+        DBbookings.prototype.GetMade_Date = function(){
             return this.made_date;
         }
-        DBbookings.prototype.GetBookings = function(){
+        DBbookings.prototype.GetStatus = function(){
+            return this.status;
+        }
+        DBbookings.prototype.GetBookings = function () {
             return this.bookings;
         }
         
@@ -133,19 +140,28 @@ function DBbookings (m_id){
             this.DatabaseContructor(user_id)
             localStorage.setItem("User_Bookings", JSON.stringify(this.bookings));
             localStorage.setItem("taffy_DB", JSON.stringify(DB));
-            console.log(aUserBookings);
-            console.log(DB[7]);
-            console.log(JSON.parse(localStorage.taffy_DB)[7]);
         }
         
         
         DBbookings.prototype.GetAllBookings = function () {
-            
+            var BookingsIds = DB[7].id;
+            var AllBookings = [];
+            var AllBookingsLength = AllBookings.length;
+            for (var i in BookingsIds){
+                    var booking = {
+                        id:                 DB[7].id[i],
+                        book_member_id:     DB[7].book_member_id[i],
+                        sharing_id:         DB[7].sharing_id[i],
+                        made_date:          DB[7].made_date[i]
+                    }
+                AllBookings.splice(AllBookingsLength, 0, booking);
+            }
+            return AllBookings;
         }
         
         DBbookings.prototype.SaveBookingsOnLogin = function(){
             localStorage.setItem("User_Bookings", JSON.stringify(this.bookings));
         }
         
-        this.DatabaseContructor(m_id);
+        this.DatabaseContructor(m_id, book_id);
 }

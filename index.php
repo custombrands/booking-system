@@ -4,13 +4,11 @@
     <head>
         <title>Car Share - Your Open Source for Car Sharing</title>
         <meta charset="utf-8" />
-        <!--<link rel="stylesheet" href="css/normalize.css" />-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/bootstrap/bootstrap.css" />
+        <link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.9.0.custom.min.css" />
         <link rel="stylesheet" href="css/Style.css" />
         <link rel="stylesheet" href="css/main.css" />
-        <link rel="stylesheet" href="css/bootstrap/bootstrap.css" />
-        <script>
-            
-        </script>
     </head>
         
     <body id="body">
@@ -28,8 +26,10 @@
                             </ul>
                         </div><!-- end Navigation -->
                     
-                    <!--<div class="Clear"></div>-->
+                    <div class="Clear"></div>
                 </div><!--end Header div-->
+                
+               
                 
                 <div id="VideoContainer">
                     <div id="Video">
@@ -134,6 +134,7 @@
                     <div class="Clear"></div>
                 </div><!--end MainContent-->
                 
+                
             </div><!--end CenterColumn-->
         </div><!--end top container-->
         <div id="BottomContainer">
@@ -147,9 +148,9 @@
         
         
             
-        <!--<script type="text/javascript" src="js/main.js"></script>-->
         <script type="text/javascript" src="js/taffy.js"></script>
         <script type="text/javascript" src="js/jquery-1.8.1.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.9.0.custom.min.js"></script>
         <script type="text/javascript" src="js/cufon-yui.js"></script>
         <script type="text/javascript" src="js/swfobject.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
@@ -166,8 +167,10 @@
         <script type="text/javascript" src="js/ui-effects.js"></script>
         <script type="text/javascript">
             Cufon.replace('#SignUpModal h1')('#Navigation ul li', {hover: true, fontFamily: "Bauh"});
-                
-
+            
+            
+           
+            
         </script>
             
     </body>

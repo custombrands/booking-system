@@ -1,15 +1,40 @@
 <div id="UserNavigationPanel" class="navbar navbar-static-top" >
     <div class="navbar-inner">
         <div class="container">
-            <!-- Site name for the upper left corner of the site with user Specific Options-->
+            <!-- Start of "MyCarShare" -->
             <ul class="nav">
-                <li class="dropdown">
-                    <a class="brand dropdown-toggle dropdown"  data-toggle="dropdown" href="#">MyCarShare&nbsp;<i class="caret"></i></a>
-                    <ul class="dropdown-menu">
-                        <li class="nav-header">Your Data</li>
-                        <li><a id="BtnTriggerUserBookings" href="#" data-toggle="modal" data-target="#UserBookingsModal"><i class="icon-tags"></i>&nbsp;CarBookings</a></li>
-                        <li><a id="BtnTriggerUserSharings" href="#" data-toggle="modal" data-target="#UserSharingsModal"><i class="icon-briefcase"></i>&nbsp;CarSharings</a></li>
-                        <li><a id="BtnTriggerUserRequests" href="#" data-toggle="modal" data-target="#UserRequestsModal"><i class="icon-calendar"></i>&nbsp;CarRequests</a></li>
+                <!-- Start of "MyCarShare" drop down -->
+                <li id="MyCarShare-dropdown" class="dropdown">
+                    <!-- Top left name of the site "MyCarShare" -->
+                    <a class="brand dropdown-toggle"  data-toggle="dropdown" href="#">
+                        <span class="text-info">MyCarShare&nbsp;</span>
+                        <i class="caret"></i>
+                    </a>
+                    <!-- Start MyCarShare drop down menu -->
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="MyCarShare-dropdown">
+                        <!-- Menu header -->
+                        <li role="menuitem" class="nav-header">Your&nbsp;Data</li>
+                        <!-- Menu item "CarBookings" -->
+                        <li role="menuitem">
+                            <a id="BtnTriggerUserBookings" href="#" tabindex="-1" data-toggle="modal" data-target="#UserBookingsModal">
+                                <i class="icon-tags"></i>
+                                &nbsp;CarBookings
+                            </a>
+                        </li>
+                        <!-- Menu item "CarSharings" --> 
+                        <li role="menuitem">
+                            <a id="BtnTriggerUserSharings" href="#" tabindex="-1" data-toggle="modal" data-target="#UserSharingsModal">
+                                <i class="icon-briefcase"></i>
+                                &nbsp;CarSharings
+                            </a>
+                        </li>
+                        <!-- Menu item "CarRequests" -->
+                        <li role="menuitem">
+                            <a id="BtnTriggerUserRequests" href="#" tabindex="-1" data-toggle="modal" data-target="#UserRequestsModal">
+                                <i class="icon-calendar"></i>
+                                &nbsp;CarRequests
+                            </a>
+                        </li>
                     </ul>
                     
                     <!--Start of User Bookings Modal-->
@@ -20,7 +45,18 @@
                             <h1 id="LblUserBookingsModal">My Bookings</h1>
                         </div>
                         <div class="modal-body">
-                            <!--User Bookings are Here-->
+                            <ul class="nav nav-pills" >
+                                <li class="active"><a href="#ActiveBookingsTab" data-toggle="tab">Active</a></li>
+                                <li class=""><a href="#PastBookingsTab" data-toggle="tab">Past Bookings</a></li>
+                            </ul>
+                            <div class="tab-content" style="clear: left; width: 800px;">
+                                <div class="active tab-pane" id="ActiveBookingsTab">
+                                    <!--User Active Bookings are Here-->
+                                </div>
+                                <div class="tab-pane" id="PastBookingsTab">
+                                    <!--User Past Bookings are Here-->
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
@@ -35,8 +71,25 @@
                             <h1 id="LblUserSharingsModal">My Car Sharings</h1>
                         </div>
                         <div class="modal-body">
-                            <!--User Sharings are Here-->
+                            <ul class="nav nav-pills" >
+                                <li class="active">
+                                    <a href="#ActiveSharingsTab" data-toggle="tab">Active</a>
+                                </li>
+                                <li class="">
+                                    <a href="#PastSharingsTab" data-toggle="tab">Past Sharings</a>
+
+                                </li>
+                            </ul>
+                            <div class="tab-content" style="clear: left; width: 800px;">
+                                <div class="active tab-pane" id="ActiveSharingsTab">
+                                    <!--User Active Sharings are Here-->
+                                </div>
+                                <div class="tab-pane" id="PastSharingsTab">
+                                    <!--User Past Sharings are Here-->
+                                </div>
+                            </div>
                         </div>
+                        
                         <div class="modal-footer">
                             <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
                         </div>
@@ -89,21 +142,35 @@
                 </li>            
             </ul>
             
-            <!-- Start of most right button group -->
+            <!-- Start of most right User Profile Controls menu -->
             <ul class="nav pull-right">
                 <li id="UserBtnGroup">
                     <div class="btn-group">
-                        <!-- Start of drop down menu -->
-                        <!-- Logged in user Name on the button and button trigger for drop down -->
-                        <a id="LogedinUserName" class="btn btn-primary" data-toggle="dropdown" href="#"><i class="icon-user icon-white"></i> User</a>
-                        <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>                        
-                        <ul class="dropdown-menu">
-                            <!-- Modal Edit User Trigger -->
-                            <li><a id="BtnTriggerEdit" href="#" data-toggle="modal" data-target="#EditUserModal"><i class="icon-pencil"></i>&nbsp;&nbsp;&nbsp;Edit</a></li>
-                            <li><a href="#"><i class="icon-list"></i>&nbsp;&nbsp;&nbsp;Profile</a></li>
+                        <!-- Start of Button with name of Logged in User Name -->
+                        <a id="LogedinUserName" class="btn btn-primary" data-toggle="dropdown" href="#"><i class="icon-user icon-white"></i></a>
+                        <!-- Start  of Arrow button-->
+                        <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+                        <!-- Start of Dropdown menu for logged in user-->
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="LogedinUserName">
+                            <!-- Modal Edit User Modal Trigger -->
+                            <li role="menuitem">
+                                <a id="BtnTriggerEdit" href="#" role="button" tabindex="-1" 
+                                   data-toggle="modal" data-target="#EditUserModal">
+                                    <i class="icon-pencil"></i>
+                                    &nbsp;&nbsp;&nbsp;Edit
+                                </a>
+                            </li>
+                            <li role="menuitem">
+                                <a href="#"><i class="icon-list"></i>
+                                    &nbsp;&nbsp;&nbsp;Profile
+                                </a>
+                            </li>
                         </ul>
-                        <!-- Sign out button -->
-                        <button id="BtnSignout" class="btn btn-primary" type="button" style="margin-left: -3px;" >Logout <i class="icon-share icon-white"></i></button>
+                        <!-- Start of sign out button -->
+                        <button id="BtnSignout" class="btn btn-primary" role="button" type="button" style="margin-left: -3px;">
+                            Logout&nbsp;
+                            <i class="icon-share icon-white"></i>
+                        </button>
                     </div>
                     <!--Start of Edit User Info Modal-->
                     <!-- triggered on drop down menu "Edit" click -->
@@ -149,8 +216,6 @@
                             <button id="BtnEditUser" class="btn btn-primary" type="button">Save</button>
                         </div>
                     </div>
-                    
-                        
                 </li>
             </ul>
             
@@ -158,9 +223,9 @@
             <!-- Start of User Actions Share, Request, Book -->
             <ul id="UserActions" class="nav pull-right">
                 
-                <!--Start of Add Sharing Action User Modal-->
                 <li>
                     <div class="btn-group">
+                        <!--Start of Add Sharing Action User Modal-->
                         <a id="BtnTriggerAddSharing" class="btn btn-primary" href="#"  data-toggle="modal"  data-target="#AddSharingModal">Share</a>
                         <div id="AddSharingModal" class="modal fade hide" tabindex="-1" aria-labelledby="LblAddSharing"  aria-hidden="true">
                             <div class="modal-header">
@@ -209,32 +274,29 @@
                                     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
                                     <button id="BtnAddSharing" class="btn btn-primary" type="button">Share</button>
                             </div>
-
                         </div>
                 
-                <!--Start of Add Request User Modal-->
-                    <a class="btn btn-primary" href="#" data-toggle="modal" data-remote="" data-target="#AddRequestModal">Request</a>
+                        <!--Start of Add Request User Modal-->
+                        <a class="btn btn-primary" href="#" data-toggle="modal" data-remote="" data-target="#AddRequestModal">Request</a>
                     
-                    <div id="AddRequestModal" class="modal fade hide" aria-labelledby="LblAddRequest"  aria-hidden="true">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h1 id="LblAddRequest">Add Request</h1>
+                        <div id="AddRequestModal" class="modal fade hide" aria-labelledby="LblAddRequest"  aria-hidden="true">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h1 id="LblAddRequest">Add Request</h1>
+                            </div>
+                            <div class="modal-body">
+
+                                <!--Add Request Form Here-->
+
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                                <button id="BtnAddRequest" class="btn btn-primary" type="button">Request</button>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            
-                            <!--Add Request Form Here-->
-                            
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                            <button id="BtnAddRequest" class="btn btn-primary" type="button">Request</button>
-                        </div>
-                    </div>
                 
-                
-                <!--Start of Booking -->
-                
-                    <a class="btn btn-primary BtnTriggerAvailableSharings" href="#" data-toggle="modal" data-target="#AvailableSharingsModal">Book</a>
+                        <!--Start of Booking -->
+                        <a class="btn btn-primary BtnTriggerAvailableSharings" href="#" data-toggle="modal" data-target="#AvailableSharingsModal">Book</a>
                     </div>
                 </li>
             </ul>

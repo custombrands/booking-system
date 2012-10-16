@@ -41,13 +41,13 @@
                             <div class="control-group">
                                 <div class="input-prepend">
                                     <span class="add-on"><i class="icon-user"></i></span>
-                                    <input id="LoginUserEmail" class="input-medium" placeholder="Username or Email" type="text" name="LoginUserEmail" value="b@gmdb.com" />
+                                    <input id="LoginUserEmail" class="input-medium" placeholder="Username or Email" type="text" name="LoginUserEmail" value="a@gmail.com" />
                                 </div>
                             </div>
                             <div class="control-group">
                                 <div class="input-prepend">
                                     <span class="add-on"><i class="icon-cog"></i></span>
-                                    <input id="LoginPassword" class="input-medium" placeholder="Password" type="password" name="LoginPassword" value="111111" />
+                                    <input id="LoginPassword" class="input-medium" placeholder="Password" type="password" name="LoginPassword" value="000000" />
                                 </div>
                             </div>    
                             <div class="control-group">
@@ -66,54 +66,3 @@
     </div>
     
 </div>
-
-
-
-
-
-
-
-
-
-
-<?php
-//<div class="navbar navbar-fixed-top">
-//  <div class="navbar-inner">
-//    <div class="container"> <!--Collapsable nav bar -->
-//        
-//        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-//            <span class="icon-bar"></span>
-//            <span class="icon-bar"></span>
-//            <span class="icon-bar"></span>
-//        </a>
-//
-//         <!--Your site name for the upper left corner of the site--> 
-//        <a class="brand">Car Share</a>
-//
-//         <!--Start of the nav bar content--> 
-//        <div class="nav-collapse"> <!--Other nav bar content -->
-//             <!--The drop down menu--> 
-//            <ul class="nav pull-right">
-//                <li><a href="/users/sign_up">Sign Up</a></li>
-//                <li class="divider-vertical"></li>
-//                <li class="dropdown">
-//                <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In<strong class="caret"></strong></a>
-//                <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
-//                     <!--Login form here--> 
-//
-//                    <form action="index.php" method="post" accept-charset="UTF-8" onsubmit="return false;">
-//                      <input id="LoginUserEmail" style="margin-bottom: 15px;" type="text" name="LoginUserEmail" size="30" />
-//                      <input id="LoginPassword" style="margin-bottom: 15px;" type="password" name="LoginPassword" size="30" />
-//                      <input id="LoginRememberMe" style="float: left; margin-right: 10px;" type="checkbox" name="LoginRememberMe" value="1" />
-//                      <label class="RememberMe" for="LoginRememberMe">Remember me</label>
-//
-//                      <input id="BtnSignIn" class="btn btn-primary" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" name="submit" value="Sign In" />
-//                    </form>
-//                </div>
-//                </li>
-//            </ul>
-//        </div>
-//    </div>
-//  </div>
-//</div>
-?>
